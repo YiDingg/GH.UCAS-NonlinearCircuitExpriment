@@ -1,0 +1,23 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    CREATE SYMBOL                                                    )
+(                                                                     )
+(    Drawing          : R0402.dra                                     )
+(    Software Version : 16.6-2015S108                                 )
+(    Date/Time        : Fri Nov 08 10:56:26 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+Create Symbol of type: PACKAGE
+    Directory = E:/Cadence/SPB_Data
+    Name      = r0402.psm
+    User      = 86198
+    Machine   = VEHICLE
+
+
+Create symbol started.
+ 
+
+Create symbol completed.
+

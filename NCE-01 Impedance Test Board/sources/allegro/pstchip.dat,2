@@ -1,0 +1,42 @@
+FILE_TYPE=LIBRARY_PARTS;
+{ Using PSTWRITER 16.6.0 d001Nov-09-2024 at 22:08:30}
+primitive 'RESISTOR_R0402_RESISTOR=100';
+  pin
+    '1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    '2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='RESISTOR';
+    JEDEC_TYPE='R0402';
+    VALUE='RESISTOR=100';
+  end_body;
+end_primitive;
+primitive 'SMA_SMA_SMA';
+  pin
+    'GND1':
+      PIN_NUMBER='(1)';
+      PINUSE='UNSPEC';
+    'GND2':
+      PIN_NUMBER='(2)';
+      PINUSE='UNSPEC';
+    'GND3':
+      PIN_NUMBER='(3)';
+      PINUSE='UNSPEC';
+    'GND4':
+      PIN_NUMBER='(4)';
+      PINUSE='UNSPEC';
+    'RF':
+      PIN_NUMBER='(5)';
+      PINUSE='UNSPEC';
+  end_pin;
+  body
+    PART_NAME='SMA';
+    JEDEC_TYPE='SMA';
+    VALUE='SMA';
+  end_body;
+end_primitive;
+END.

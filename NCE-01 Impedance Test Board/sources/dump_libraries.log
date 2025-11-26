@@ -1,0 +1,51 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Dump Library Log                                                 )
+(                                                                     )
+(    Software Version : 16.6-2015S108                                 )
+(    Date/Time        : Fri Nov 08 11:41:09 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+*** file: RFID_Cali_Kit.brd ***
+
+
+
+  *** Creating all device files (see create_devices.log) ***
+
+
+  *** Creating padstacks. ***
+
+  SMAC200H130 being dumped.
+
+  SMAC254H150 being dumped.
+
+  SMDR05XR06 being dumped.
+
+
+  *** Creating flash symbols (.dra and .fsm) ***
+
+  flac200h130 being dumped.
+
+  flac254h150 being dumped.
+
+
+  *** Creating package symbols (.dra and .psm) ***
+
+  sma being dumped.
+
+  r0402 being dumped.
+
+
+
+*********************** Summary *********************
+ERRORs reported:                           0
+
+Number of padstacks dumped:                3
+Number of package symbols dumped:          2
+Number of flash symbols dumped:            2
+
+Total number of symbols dumped:            4
+*****************************************************
+

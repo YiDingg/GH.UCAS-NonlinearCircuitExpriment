@@ -1,0 +1,27 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    DRC Update                                                       )
+(                                                                     )
+(    Drawing          : exp2_osc.brd                                  )
+(    Software Version : 16.6-2015S115                                 )
+(    Date/Time        : Thu Nov 13 18:36:28 2025                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+ ========= check       1 shapes                       0:00:00
+ ========= check       0 standalone pins              0:00:00
+ ========= check       0 symbols (pins,lines,text)    0:00:00
+ ========= check       0 xnets                        0:00:00
+ ========= check       1 nets                         0:00:00
+ ========= check       0 standalone branches          0:00:00
+ ========= check       0 standalone filled rectangles 0:00:00
+ ========= check       0 standalone lines             0:00:00
+ ========= check       0 standalone text              0:00:00
+ ========= check       0 standalone rectangles        0:00:00
+
+ ..... Total number of DRC errors  0
+
+ ..... DRC update completed, total CPU time   0:00:00
+ *************************************************************************
+

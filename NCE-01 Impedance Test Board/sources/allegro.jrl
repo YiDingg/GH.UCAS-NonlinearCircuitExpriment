@@ -1,0 +1,23 @@
+\t (00:00:02) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:02)     Journal start - Thu Nov 20 14:17:27 2025
+\t (00:00:02)         Host=YIDING-LEGION User=13081 Pid=15324 CPUs=32
+\t (00:00:02) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe
+\t (00:00:02) 
+\t (00:00:05) Opening existing design...
+\d (00:00:05) Design opened: C:/Users/13081/Desktop/NCE-L2-L4 第二章-正弦振荡器模块设计/NCE Lecture-2 丁毅 2023K8009908031 (week-8, 2025-11-06) (Impedance Test Board)/RFID_Cali_Kit1.brd
+\t (00:00:06) Grids are drawn 20.000, 20.000 apart for enhanced viewability.
+\i (00:00:06) trapsize 22911
+\i (00:00:06) trapsize 22528
+\i (00:00:07) trapsize 22976
+\i (00:00:07) trapsize 23160
+\i (00:00:07) trapsize 20613
+\t (00:00:07) Grids are drawn 20.000, 20.000 apart for enhanced viewability.
+\i (00:00:07) trapsize 20613
+\i (00:00:08) generaledit 
+\i (00:02:07) zoom out 1 
+\i (00:02:07) setwindow pcb
+\i (00:02:07) zoom out 4270.924 3343.358
+\t (00:02:07) Grids are drawn 40.000, 40.000 apart for enhanced viewability.
+\i (00:02:07) trapsize 41225
+\i (05:54:55) exit 
+\t (05:54:56)     Journal end - Thu Nov 20 20:12:21 2025

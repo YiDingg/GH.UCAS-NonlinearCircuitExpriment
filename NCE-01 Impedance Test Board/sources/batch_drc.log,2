@@ -1,0 +1,30 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    DRC Update                                                       )
+(                                                                     )
+(    Drawing          : Sin_Osc_Module.brd                            )
+(    Software Version : 16.6-2015S115                                 )
+(    Date/Time        : Sun Nov 10 22:02:11 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+ ========= check shapes                       0:00:00
+ ========= check standalone pins              0:00:00
+ ========= check symbols (pins,lines,text)    0:00:00
+ ========= check xnets                        0:00:00
+ ========= check nets                         0:00:00
+ ========= check standalone branches          0:00:00
+ ========= check standalone filled rectangles 0:00:00
+ ========= check standalone lines             0:00:00
+ ========= check standalone text              0:00:00
+ ========= check standalone rectangles        0:00:00
+
+ ..... Total number of DRC errors  0
+
+
+WARNING: 1 dynamic shape(s) out of date; checking skipped on these elements.
+
+ ..... DRC update completed, total CPU time   0:00:00
+ *************************************************************************
+

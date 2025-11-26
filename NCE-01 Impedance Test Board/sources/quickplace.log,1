@@ -1,0 +1,31 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    QUICKPLACE LOG                                                   )
+(                                                                     )
+(    Drawing          : RFID_Cali_Kit1.brd                            )
+(    Software Version : 16.6-2015S115                                 )
+(    Date/Time        : Sat Nov 09 22:18:27 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+State: Placing on layer TOP
+
+         Placed symbol:  U3 / SMA_SMA_SMA / SMA at (204.850 4535.559)
+         Placed symbol:  U8 / SMA_SMA_SMA / SMA at (606.550 4535.559)
+         Placed symbol:  U7 / SMA_SMA_SMA / SMA at (1008.250 4535.559)
+         Placed symbol:  U6 / SMA_SMA_SMA / SMA at (1409.950 4535.559)
+         Placed symbol:  U1 / SMA_SMA_SMA / SMA at (1811.650 4535.559)
+         Placed symbol:  U2 / SMA_SMA_SMA / SMA at (204.850 4937.259)
+         Placed symbol:  U5 / SMA_SMA_SMA / SMA at (606.550 4937.259)
+         Placed symbol:  U4 / SMA_SMA_SMA / SMA at (1008.250 4937.259)
+         Placed symbol:  R1 / RESISTOR_R0402_RESISTOR=100 / R0402 at (1303.706 4769.937)
+         Placed symbol:  R4 / RESISTOR_R0402_RESISTOR=100 / R0402 at (1459.399 4769.937)
+         Placed symbol:  R3 / RESISTOR_R0402_RESISTOR=100 / R0402 at (1615.092 4769.937)
+         Placed symbol:  R2 / RESISTOR_R0402_RESISTOR=100 / R0402 at (1770.785 4769.937)
+
+
+Placed 12 of 12 applicable (12 total) symbols.
+
+-----------------------------------------------------------------------
+

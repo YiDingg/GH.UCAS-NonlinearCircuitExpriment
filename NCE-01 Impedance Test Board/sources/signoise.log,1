@@ -1,0 +1,5 @@
+INFO: Loaded existing interconnect file 'E:\Cadence\SPB_Data\interconn.iml'
+INFO: Loaded existing interconnect file 'E:\Cadence\SPB_16.6\share\pcb\signal\cds_interconn.iml'
+INFO: Finished loading SigNoise interconnect libraries
+INFO: Field Solver bem2d for STL_1S_1R_5
+INFO: Executing command: bem2d 0 "C:/Users/86198/AppData/Local/Temp/#Taaaaac22992.in" 0.00127

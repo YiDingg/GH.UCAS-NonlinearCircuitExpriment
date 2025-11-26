@@ -1,0 +1,43 @@
+  Revised: Tuesday, November 07, 2023
+          Revision: 
+
+
+
+
+
+
+
+Bill Of Materials       November 7,2023      15:40:04	Page1
+
+Item	Quantity	Reference	Part
+______________________________________________
+
+1	1	CV1	5/25P
+2	1	CV2	5/20P
+3	2	C1,C4	100pF
+4	1	C2	30pF
+5	1	C3	75pF
+6	2	C5,C6	200pF
+7	2	C7,C8	10nF
+8	1	C9	330nF/50V
+9	1	C10	22uF/50V
+10	1	C11	10nF/50V
+11	2	H1,H2	HOLE 
+12	1	JZ	10.245MHz
+13	1	J1	JUMPER_3
+14	3	J3,J4,J5	JUMPER_2
+15	1	K1	KEY
+16	1	L	2.2uH
+17	1	LED	LED_P2
+18	1	OUT	M-HOLE
+19	1	R1	15K
+20	1	R2	8.7K
+21	1	R3	8.3K
+22	1	R4	1K
+23	1	R5	20K
+24	1	R6	10K
+25	1	R7	2K
+26	2	TP1,TP2	TP-TH-C
+27	2	T1,T2	9018
+28	1	W1	22K
+29	1	W2	680R

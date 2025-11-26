@@ -1,0 +1,23 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    CREATE SYMBOL                                                    )
+(                                                                     )
+(    Drawing          : FlaC200h130.dra                               )
+(    Software Version : 16.6-2015S108                                 )
+(    Date/Time        : Thu Nov 07 23:12:32 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+Create Symbol of type: FLASH
+    Directory = E:/Cadence/SPB_Data
+    Name      = flac200h130.fsm
+    User      = 86198
+    Machine   = VEHICLE
+
+
+Create symbol started.
+ 
+
+Create symbol completed.
+

@@ -1,0 +1,44 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Create_devices LOG file                                          )
+(                                                                     )
+(    Drawing          : osc.brd                                       )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Fri Oct 21 18:49:32 2022                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/con3_3_tpad_hole.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_100pf.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_cp3528_22uf50v.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_10nf50v.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_30pf.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_75pf.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_200pf.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_10nf.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_c0805_330nf50v.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_0_cap_w_525p.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/cap_0_cap_w_520p.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/jumper_3_jumper_3_jumper_3.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/jumper_2_jumper_2_jumper_2.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/xtal_p2_jz_10245mhz.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/key_0_key_key.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/inductor_p2_ind_22uh.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/led_p2_led_led_p2.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/m-hole_1_rca_m-hole.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_15k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_87k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_83k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_1k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_20k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_10k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_res_2k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/npn_3p_to92_9018.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/tp-th-c_tp_tp-th-c.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_3_res_3_22k.txt': written successfully.
+Device file 'C:/Users/fengpeng/Desktop/OSC/lib_pcb/res_3_res_3_680r.txt': written successfully.
+
+  Created device files: 29
+

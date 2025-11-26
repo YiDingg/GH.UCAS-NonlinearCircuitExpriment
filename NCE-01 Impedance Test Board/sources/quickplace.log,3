@@ -1,0 +1,56 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    QUICKPLACE LOG                                                   )
+(                                                                     )
+(    Drawing          : Sin_Osc_Module.brd                            )
+(    Software Version : 16.6-2015S115                                 )
+(    Date/Time        : Sun Nov 10 16:47:50 2024                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+State: Placing on layer TOP
+
+         Placed symbol:  K1 / KEY_0_KEY_KEY / KEY at (78.866 2039.496)
+         Placed symbol:  J1 / JUMPER_3_JUMPER_3_JUMPER_3 / JUMPER_3 at (401.827 2015.874)
+         Placed symbol:  T1 / NPN_3P_TO92_9018 / TO92 at (691.262 2122.624)
+         Placed symbol:  OUT / M-HOLE_1_RCA_M-HOLE / RCA at (1059.042 2238.787)
+         Placed symbol:  W1 / RES_3_RES_3_22K / RES_3 at (1500.113 2011.939)
+         Placed symbol:  W2 / RES_3_RES_3_680R / RES_3 at (2043.546 2011.939)
+         Placed symbol:  T2 / NPN_3P_TO92_9018 / TO92 at (2463.688 2122.624)
+         Placed symbol:  C5 / CAP_C0805_200PF / C0805 at (2642.688 2011.504)
+         Placed symbol:  C4 / CAP_C0805_100PF / C0805 at (2800.688 2011.504)
+         Placed symbol:  C6 / CAP_C0805_200PF / C0805 at (2958.688 2011.504)
+         Placed symbol:  C10 / CAP+_CP3528_22UF/50V / CP3528 at (3137.358 2035.564)
+         Placed symbol:  C7 / CAP_C0805_10NF / C0805 at (3316.028 2011.504)
+         Placed symbol:  CV2 / CAP+_0_CAP_W_5/20P / CAP_W at (3440.369 2101.110)
+         Placed symbol:  C3 / CAP_C0805_75PF / C0805 at (3781.244 2011.504)
+         Placed symbol:  C2 / CAP_C0805_30PF / C0805 at (3939.244 2011.504)
+         Placed symbol:  C11 / CAP_C0805_10NF/50V / C0805 at (4097.244 2011.504)
+         Placed symbol:  C8 / CAP_C0805_10NF / C0805 at (4255.244 2011.504)
+         Placed symbol:  J4 / JUMPER_2_JUMPER_2_JUMPER_2 / JUMPER_2 at (55.244 2551.435)
+         Placed symbol:  C9 / CAP_C0805_330NF/50V / C0805 at (273.679 2547.065)
+         Placed symbol:  JZ / XTAL_P2_JZ_10.245MHZ / JZ at (478.726 2606.553)
+         Placed symbol:  CV1 / CAP+_0_CAP_W_5/25P / CAP_W at (843.028 2636.671)
+         Placed symbol:  L / INDUCTOR_P2_IND_2.2UH / IND at (1149.454 2565.215)
+         Placed symbol:  LED / LED_P2_LED_LED_P2 / LED at (1716.509 2578.049)
+         Placed symbol:  J3 / JUMPER_2_JUMPER_2_JUMPER_2 / JUMPER_2 at (1857.188 2551.435)
+         Placed symbol:  R1 / RES_RES_15K / RES at (2032.906 2552.616)
+         Placed symbol:  R2 / RES_RES_8.7K / RES at (2499.173 2552.616)
+         Placed symbol:  R3 / RES_RES_8.3K / RES at (2965.440 2552.616)
+         Placed symbol:  R4 / RES_RES_1K / RES at (3431.707 2552.616)
+         Placed symbol:  R5 / RES_RES_20K / RES at (3897.974 2552.616)
+         Placed symbol:  R6 / RES_RES_10K / RES at (40.283 2809.750)
+         Placed symbol:  R7 / RES_RES_2K / RES at (506.550 2809.750)
+         Placed symbol:  J5 / JUMPER_2_JUMPER_2_JUMPER_2 / JUMPER_2 at (987.778 2808.569)
+         Placed symbol:  C1 / CAP_C0805_100PF / C0805 at (1206.213 2804.199)
+         Placed symbol:  TP1 / TP-TH-C_TP_TP-TH-C / TP at (1380.213 2844.199)
+         Placed symbol:  TP2 / TP-TH-C_TP_TP-TH-C / TP at (1554.213 2844.199)
+         Placed symbol:  H2 / CON3_3_TPAD_HOLE / TPAD at (1717.923 2849.909)
+         Placed symbol:  H1 / CON3_3_TPAD_HOLE / TPAD at (1887.343 2849.909)
+
+
+Placed 37 of 37 applicable (37 total) symbols.
+
+-----------------------------------------------------------------------
+

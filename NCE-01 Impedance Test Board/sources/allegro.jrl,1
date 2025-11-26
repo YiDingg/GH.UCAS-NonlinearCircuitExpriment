@@ -1,0 +1,46 @@
+\t (00:00:02) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:02)     Journal start - Thu Nov 20 14:15:07 2025
+\t (00:00:02)         Host=YIDING-LEGION User=13081 Pid=47200 CPUs=32
+\t (00:00:02) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe C:\Users\13081\Desktop\NCE-L2-L4 第二章-正弦振荡器模块设计\NCE Lecture-2 丁毅 2023K8009908031 (week-8, 2025-11-06) (Impedance Test Board)\RFID_Cali_Kit1.brd
+\t (00:00:02) 
+\t (00:00:05) Opening existing design...
+\d (00:00:05) Design opened: C:/Users/13081/Desktop/NCE-L2-L4 第二章-正弦振荡器模块设计/NCE Lecture-2 丁毅 2023K8009908031 (week-8, 2025-11-06) (Impedance Test Board)/RFID_Cali_Kit1.brd
+\t (00:00:07) Grids are drawn 20.000, 20.000 apart for enhanced viewability.
+\i (00:00:07) trapsize 22911
+\i (00:00:07) trapsize 22528
+\i (00:00:07) trapsize 22976
+\i (00:00:07) trapsize 23160
+\i (00:00:08) trapsize 20613
+\t (00:00:08) Grids are drawn 20.000, 20.000 apart for enhanced viewability.
+\i (00:00:08) trapsize 20613
+\i (00:00:09) generaledit 
+\i (00:00:09) zoom out 1 
+\i (00:00:09) setwindow pcb
+\i (00:00:09) zoom out 2193.177 4151.371
+\t (00:00:09) Grids are drawn 40.000, 40.000 apart for enhanced viewability.
+\i (00:00:09) trapsize 41225
+\i (00:00:10) zoom in 1 
+\i (00:00:10) setwindow pcb
+\i (00:00:10) zoom in 3203.193 3194.948
+\t (00:00:10) Grids are drawn 20.000, 20.000 apart for enhanced viewability.
+\i (00:00:10) trapsize 20613
+\i (00:00:18) reports 
+\i (00:00:53) reports "Bill of Material Report" "Cadence Schematic Feedback Report" "Design Rules Check (DRC) Report" "Design Rules Net Shorts Check (DRC) Report" "Net List Report"
+\i (00:00:55) setwindow text
+\i (00:00:55) close 
+\i (00:01:05) setwindow text
+\i (00:01:05) close 
+\i (00:01:06) setwindow text
+\i (00:01:06) close 
+\i (00:01:08) setwindow text
+\i (00:01:08) close 
+\i (00:01:11) setwindow text
+\i (00:01:11) close 
+\i (00:01:53) setwindow pcb
+\i (00:01:53) generaledit 
+\t (00:01:54) last pick:  4745.013 4275.046
+\w (00:01:54) WARNING(SPMHUT-40): Pick is outside the extent of the drawing ... pick again.
+\i (00:01:55) exit 
+\e (00:01:55) Do you want to save the changes you made to RFID_Cali_Kit1.brd?
+\i (00:01:58) fillin yes 
+\t (00:01:59)     Journal end - Thu Nov 20 14:17:04 2025

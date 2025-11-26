@@ -1,0 +1,16 @@
+\t (00:00:07) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:07)     Journal start - Thu Nov 20 13:55:06 2025
+\t (00:00:07)         Host=YIDING-LEGION User=13081 Pid=28500 CPUs=32
+\t (00:00:07) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe
+\t (00:00:07) 
+\t (00:00:10) Opening existing design...
+\d (00:00:10) Design opened: C:/Users/13081/Desktop/NCE-L2-L4 第二章-正弦振荡器模块设计/sources/NCE_L2-L4_osc.brd
+\i (00:00:11) trapsize 11455
+\i (00:00:11) trapsize 11264
+\i (00:00:12) trapsize 11488
+\i (00:00:12) trapsize 11580
+\i (00:00:12) trapsize 10306
+\i (00:00:12) trapsize 10306
+\i (00:00:13) generaledit 
+\i (00:07:54) exit 
+\t (00:07:54)     Journal end - Thu Nov 20 14:02:53 2025

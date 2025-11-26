@@ -1,0 +1,130 @@
+FILE_TYPE = EXPANDEDPARTLIST;
+{ Using PSTWRITER 16.6.0 d001Nov-09-2024 at 22:08:30 }
+DIRECTIVES
+ PST_VERSION='PST_HDL_CENTRIC_VERSION_0';
+ ROOT_DRAWING='RFID_CALI_KIT';
+ POST_TIME='Feb 15 2016 19:53:59';
+ SOURCE_TOOL='CAPTURE_WRITER';
+END_DIRECTIVES;
+
+PART_NAME
+ R1 'RESISTOR_R0402_RESISTOR=100':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1339@DISCRETE.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1339@discrete.\resistor.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1339@discrete.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R2 'RESISTOR_R0402_RESISTOR=100':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1355@DISCRETE.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1355@discrete.\resistor.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1355@discrete.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R3 'RESISTOR_R0402_RESISTOR=100':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1371@DISCRETE.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1371@discrete.\resistor.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1371@discrete.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ R4 'RESISTOR_R0402_RESISTOR=100':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1387@DISCRETE.RESISTOR.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1387@discrete.\resistor.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1387@discrete.\resistor.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U1 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS32@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins32@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins32@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U2 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS54@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins54@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins54@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U3 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS446@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins446@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins446@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U4 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS472@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins472@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins472@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U5 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS732@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins732@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins732@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U6 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS758@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins758@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins758@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U7 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1036@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1036@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1036@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+PART_NAME
+ U8 'SMA_SMA_SMA':;
+
+SECTION_NUMBER 1
+ '@RFID_CALI_KIT.SCHEMATIC1(SCH_1):INS1062@LIBRARY1.SMA.NORMAL(CHIPS)':
+ C_PATH='@rfid_cali_kit.schematic1(sch_1):ins1062@library1.\sma.normal\(chips)',
+ P_PATH='@rfid_cali_kit.schematic1(sch_1):page1_ins1062@library1.\sma.normal\(chips)',
+ PRIM_FILE='.\pstchip.dat',
+ SECTION='';
+
+END.

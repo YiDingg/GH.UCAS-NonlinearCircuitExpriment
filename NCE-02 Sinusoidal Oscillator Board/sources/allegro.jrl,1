@@ -1,0 +1,22 @@
+\t (00:00:02) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:02)     Journal start - Thu Nov 20 21:36:39 2025
+\t (00:00:02)         Host=YIDING-LEGION User=13081 Pid=39152 CPUs=32
+\t (00:00:02) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe D:\a_RemoteRepo\GH.UCAS-NonlinearCircuitExperiment\NCE-L2-L4 第二章-正弦振荡器模块设计\NCE Lecture-3-4 丁毅-2023K8009908031 (week-9-10, 2025-11-13, 2025-11-20) (Sinusoidal Oscillator Circuit)\NCE_L2-L4_osc.brd
+\t (00:00:02) 
+\t (00:00:03) Opening existing design...
+\d (00:00:03) Design opened: D:/a_RemoteRepo/GH.UCAS-NonlinearCircuitExperiment/NCE-L2-L4 第二章-正弦振荡器模块设计/NCE Lecture-3-4 丁毅-2023K8009908031 (week-9-10, 2025-11-13, 2025-11-20) (Sinusoidal Oscillator Circuit)/NCE_L2-L4_osc.brd
+\t (00:00:04) Grids are drawn 50.000, 50.000 apart for enhanced viewability.
+\i (00:00:04) trapsize 48725
+\i (00:00:04) trapsize 46869
+\i (00:00:04) trapsize 48907
+\i (00:00:04) trapsize 46925
+\i (00:00:04) trapsize 41225
+\t (00:00:04) Grids are drawn 50.000, 50.000 apart for enhanced viewability.
+\i (00:00:04) trapsize 41225
+\i (00:00:05) generaledit 
+\i (00:00:06) zoom out 1 
+\i (00:00:06) setwindow pcb
+\i (00:00:06) zoom out 5015.047 2772.396
+\i (00:00:06) trapsize 41225
+\i (00:00:07) exit 
+\t (00:00:07)     Journal end - Thu Nov 20 21:36:45 2025

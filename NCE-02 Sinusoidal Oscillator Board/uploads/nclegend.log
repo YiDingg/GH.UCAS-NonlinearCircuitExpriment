@@ -1,0 +1,17 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    DRILL LEGEND                                                     )
+(                                                                     )
+(    Drawing          : NCE_L2-L4_osc.brd                             )
+(    Software Version : 16.6-2015S115                                 )
+(    Date/Time        : Thu Nov 13 21:00:54 2025                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+Begin processing of drill legend template file 'D:/aa_my_apps_main/Cadence_SPB_16p6/SPB_16.6/share/pcb/text/nclegend/default-mil.dlt' ...
+End of drill legend template file processing.
+
+Begin processing drill holes.
+Warning : Hole 39.370-0.000-C-P-3.150-3.150 uses multiple drill figures.
+End processing drill holes.

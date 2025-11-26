@@ -1,0 +1,99 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Dump Library Log                                                 )
+(                                                                     )
+(    Software Version : 16.6P004                                      )
+(    Date/Time        : Fri Oct 21 18:49:31 2022                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+*** file: C:/Users/fengpeng/Desktop/OSC/osc.brd ***
+
+
+
+  *** Creating all device files (see create_devices.log) ***
+
+
+  *** Creating padstacks. ***
+
+  S150X280 being dumped.
+
+  TO_RES being dumped.
+
+  VIA20_10 being dumped.
+
+  TR200D120 being dumped.
+
+  TR300D200 being dumped.
+
+  TR170D100 being dumped.
+
+  TR150D102 being dumped.
+
+  TS170D100 being dumped.
+
+  TR400D250 being dumped.
+
+  TR140D080 being dumped.
+
+  TR190D120 being dumped.
+
+  TR150D080 being dumped.
+
+  TS190D120 being dumped.
+
+  TS150D080 being dumped.
+
+  TR260D170 being dumped.
+
+  TR760D350 being dumped.
+
+  SS127 being dumped.
+
+
+  *** Creating package symbols (.dra and .psm) ***
+
+  mp760d350 being dumped.
+
+  jz being dumped.
+
+  tp being dumped.
+
+  jumper_2 being dumped.
+
+  jumper_3 being dumped.
+
+  led being dumped.
+
+  rca being dumped.
+
+  ind being dumped.
+
+  key being dumped.
+
+  res being dumped.
+
+  to92 being dumped.
+
+  c0805 being dumped.
+
+  tpad being dumped.
+
+  cp3528 being dumped.
+
+  res_3 being dumped.
+
+  cap_w being dumped.
+
+
+
+*********************** Summary *********************
+ERRORs reported:                           0
+
+Number of padstacks dumped:               17
+Number of package symbols dumped:         16
+
+Total number of symbols dumped:           16
+*****************************************************
+
