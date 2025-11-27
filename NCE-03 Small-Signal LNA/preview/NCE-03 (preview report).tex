@@ -1,0 +1,258 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{Preview Report of NCE-03 LNA (2025.11.27, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 预\ \ 习\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.2cm} Small-Signal Resonant Amplifier  \hspace{0.2cm}}
+%
+    }\hspace{0.4cm}
+    指导教师：\uline{\hspace{0.2cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.2cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.11.27}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{实验目的}
+
+
+
+\begin{enumerate}
+\item 掌握小信号谐振放大器的工作原理；
+\item 掌握小信号谐振放大器的调试方法；
+\item 掌握小信号谐振放大器各项技术参数测试 (电压增益、通频带、矩形系数)。
+\end{enumerate}
+
+
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 小信号谐振放大器实验板 (序列号 ……)
+\item 示波器 RIGOL MSO2202A  (序列号 ……)
+\item 信号发生器 GW INSTEK AFG-2225  (序列号 ……)
+\item 万用表 LINIT- UT61A (序列号 ……)
+\end{enumerate}
+
+
+
+
+\section{实验原理}
+
+\subsection{小信号调谐放大器基本原理}
+
+小信号调谐放大器 (Small-Signal Resonant Amplifier) 的作用是有选择地对某一频率范围的高频小信号进行放大，这里的“小信号”通常指电压幅度 (amplitude) 在 uV $\sim$ mV 数量级的输入信号。 \textbf{本次实验所讨论的“小信号谐振放大器”，其实类似射频系统中的 LNA (Low Noise Amplifier，低噪声放大器)，} 只是工作频率 (约 10 MHz) 远低于常见无线通信频段 (例如 2.4 GHz)。 LNA 一般用于无线接收系统的前端，主要任务是对天线接收到的微弱射频信号进行放大，在保持可介绍信噪比 (SNR) 的情况下，将信号放大至足够大的功率给后续的混频器或解调器。
+
+
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/RA schematic.png}
+    \caption{Small-Signal Resonant Amplifier Schematic}
+\end{figure}
+
+因此，我们完全可以将本实验中的小信号调谐放大器视为一种低频版的 LNA，其工作原理和技术参数与 LNA 十分相似，但对线性度和噪声系数的要求没有 LNA 那么高。
+
+
+小信号调谐放大器 (后文简称为 “Resonant Amplifier”) 的工作原理是：使用 RLC 谐振网络作为 BJT/MOS 放大电路的负载部分，谐振频率既为主要工作频率，使电路对带内信号 (in-band signal) 进行放大，同时有效抑制带外信号 (out-of-band signal)，这与 LNA 的工作原理类似。
+
+本次实验的 Resonant Amplifier 由两级构成，根据噪声系数的理论公式，如果想尽可能降低噪声系数，就必须保持前级的噪声系数不太高。因此，在设计前级放大器时，常要求采用低噪声器件，合理地设置工作电流等，使放大器在尽可能高的功率增益下噪声系数最小。
+
+对实验所用电路进行简单分析：
+\begin{enumerate}
+\item 这是一个二级放大器，从 IN1 (TP1) 端口输入小信号，由 C3 交流耦合到第一级放大器 Q1 的 Base；
+\item 第一级：由 R2/W1/R3/R4/R6 提供直流偏置 (C4 为旁路电容)，C7/C6/T1 构成谐振负载网络 (C7 可调)，输出通过 T1 耦合到第二级放大器 Q2 的 Base，可通过 TP2 测量第一级输出信号；
+\item 第二级：由 R7/W2/R9/R8/R10 提供直流偏置 (C10 为旁路电容)，C12/C11/T2 构成谐振负载网络 (C12 可调)，输出通过 T2 耦合到输出端口 OUT (TP3)。
+\end{enumerate}
+
+
+\subsection{小信号调谐放大器技术参数}
+
+Resonant Amplifier 的主要技术参数包括电压增益 (Voltage Gain)、通频带 (Bandwidth) 和矩形系数 (Shape Factor) 等：
+\begin{align}
+\mathrm{Voltage gain:\ \ } 
+A_v &:= \frac{v_{out}}{v_{in}} \\
+\mathrm{Bandwidth:\ \ } 
+\mathrm{BW}_{-3 \mathrm{dB}} &= f_{H,-3 \mathrm{dB}} - f_{L,-3 \mathrm{dB}} \\
+\mathrm{Shape\ Factor:\ \ } 
+\mathrm{SF}_{-20 \mathrm{dB}} &:= \frac{\mathrm{BW}_{-20 \mathrm{dB}}}{\mathrm{BW}_{-3 \mathrm{dB}}}
+\end{align}
+
+上式中 $v_{in}$ 和 $v_{out}$ 分别为放大器的输入和输出电压 (电压带有幅度和相位，因此增益是复数)，$\mathrm{BW}_{-3 \mathrm{dB}}$ 和 $\mathrm{BW}_{-20 \mathrm{dB}}$ 分别为放大器 voltage gain 下降 3 dB (最大值的 $\frac{\sqrt{2}}{2}$) 和 20 dB (最大值的 $\frac{1}{10}$) 时对应的频率范围宽度。注意 $\mathrm{BW} = \frac{f_0}{Q}$，因此放大器的带宽和矩形系数与谐振电路的品质因数 $Q$ 密切相关。
+
+
+
+
+
+
+
+\section{实验内容与步骤}
+
+本次实验的注意内容为“放大器的频率特性及通频带的测量”。需注意：
+\begin{enumerate}
+\item 调整两级放大器的可调电容，使两级放大器的谐振频率分别略低于和略高于 10 MHz, 但不能完全相等或相差过大；完全相等会导致频率响应曲线过于尖锐，难以测量通频带，差距过大则会导致增益明显下降，甚至出现中间窄两边高的“双峰现象”；
+\item 为电路注入小信号时，输入信号幅度 (amplitude) 应控制在 30 mV 以内，过大会导致放大器进入非线性工作区，输出波形严重失真；
+\end{enumerate}
+
+\subsection{调整电路直流工作点}
+
+\begin{enumerate}
+\item 连接好电路，为电路提供直流电源后，从 IN1 端输入 $f_0 = 10 \ \mathrm{MHz}$ 小信号，幅度在 10 mV 左右；
+\item 在 OUT 端用示波器观测到放大后的输入信号，调整两个电位器 W1/W2 来改变两个晶体管的静态工作点。微调电容 C7/C12，使输出信号幅度最大且失真最小。
+\end{enumerate}
+
+\subsection{放大器的放大倍数及通频带的测试}
+
+\begin{enumerate}
+\item 调整输入跳线 J1, 使电路输入端为 IN (TP1) 而不是天线；
+\item 测量电压增益：分别在 TP1 (IN) 和 TP3 (OUT) 处用示波器测量输入输出信号的幅度，计算电压增益；
+\item 测量带宽：在中心频率 $f_0$ 附近改变输入频率，例如 8 MHz $\sim$ 12 MHz @ 0.1 MHz step，重复步骤 (1)，对结果进行拟合后计算 -3dB 带宽；
+\item 测量矩形系数：根据步骤 (2) 得到的结果，计算 -20dB 带宽，进而计算矩形系数。
+\end{enumerate}
+
+~
+
+数据记录表格如下：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1mm} % 调整列间距
+    \caption{Resonant Amplifier Frequency Response Data}
+    \label{Resonant Amplifier Frequency Response Data}
+\begin{tabular}{ccccccccccccccc}\toprule
+    (信号发生器) $f_{in}$ (MHz) & 8.0 & 8.1 & 8.2 & 8.3 & 8.4 & 8.5 & 8.6 & 8.7 & 8.8 & 8.9 \\ 
+    (AC of TP1) $V_{in,pp}$ (V) &  &  &  &  &  &  &  &  &  &  \\
+    (AC of TP3) $V_{out,pp}$ (V) &  &  &  &  &  &  &  &  &  &  \\
+    \midrule
+    (信号发生器) $f_{in}$ (MHz) & 9.0 & 9.1 & 9.2 & 9.3 & 9.4 & 9.5 & 9.6 & 9.7 & 9.8 & 9.9 & 10.0 \\
+    (AC of TP1) $V_{in,pp}$ (V) &  &  &  & &  &  &  &  &  &  &  \\
+    (AC of TP3) $V_{out,pp}$ (V) &  &  &  & &  &  &  &  &  &  &  \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\section{思考题}
+
+\subsection{小信号调谐放大器产生自激振荡的原因是什么？如何避免产生自激振荡？}
+
+本实验所用的小信号谐振放大器由两级构成，整体增益较高且 phase shift 较大。虽然电路中没有直接的反馈路径，但由于电路布局和元器件的寄生参数 (例如晶体管的集电极-基极结电容) 等原因，仍然可能产生寄生反馈，一旦满足了自激振荡的起振条件 $|A_v(f_{osc})| = 1\ @\ \angle A_v(f_{osc}) = -180^\circ $，就会导致放大器产生自激振荡，输出端口出现持续的正弦波信号。此外，如果放大器的谐振频率设置不当 (例如两级谐振频率完全相等)，也可能导致频率响应曲线过于尖锐，增加了自激振荡的风险。
+
+可通过在输入或输出端添加补偿网络 (例如 RC 网络) 来降低避免自激振荡的产生。此外，合理调整谐振频率，使两级谐振频率略有差异，也有助于降低自激振荡风险。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + Tab:               切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+

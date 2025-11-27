@@ -1,16 +1,16 @@
-\t (00:00:01) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
-\t (00:00:01)     Journal start - Sat Nov 22 23:02:05 2025
-\t (00:00:01)         Host=YIDING-LEGION User=13081 Pid=57592 CPUs=32
-\t (00:00:01) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe D:\a_RemoteRepo\GH.UCAS-NonlinearCircuitExp\NCE-02 Sinusoidal Oscillator Board\uploads\exp2_osc.brd
-\t (00:00:01) 
-\t (00:00:03) Opening existing design...
-\d (00:00:03) Design opened: D:/a_RemoteRepo/GH.UCAS-NonlinearCircuitExp/NCE-02 Sinusoidal Oscillator Board/uploads/exp2_osc.brd
-\i (00:00:03) trapsize 22911
-\i (00:00:03) trapsize 22528
-\i (00:00:03) trapsize 22976
-\i (00:00:03) trapsize 23160
-\i (00:00:04) trapsize 20613
-\i (00:00:04) trapsize 20613
-\i (00:00:04) generaledit 
-\i (00:00:07) exit 
-\t (00:00:07)     Journal end - Sat Nov 22 23:02:11 2025
+\t (00:00:05) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:05)     Journal start - Thu Nov 27 19:50:01 2025
+\t (00:00:05)         Host=YIDING-LEGION User=13081 Pid=36020 CPUs=32
+\t (00:00:05) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe
+\t (00:00:05) 
+\t (00:00:07) Opening existing design...
+\d (00:00:07) Design opened: D:/a_RemoteRepo/GH.UCAS-NonlinearCircuitExp/NCE-02 Sinusoidal Oscillator Board/uploads/NCE_L2-L4_osc.brd
+\i (00:00:07) trapsize 22911
+\i (00:00:07) trapsize 22528
+\i (00:00:07) trapsize 22976
+\i (00:00:07) trapsize 23160
+\i (00:00:08) trapsize 20613
+\i (00:00:08) trapsize 20613
+\i (00:00:08) generaledit 
+\i (00:00:08) exit 
+\t (00:00:09)     Journal end - Thu Nov 27 19:50:05 2025

@@ -1,52 +1,16 @@
-\t (00:00:06) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
-\t (00:00:06)     Journal start - Sat Nov 22 16:06:55 2025
-\t (00:00:06)         Host=YIDING-LEGION User=13081 Pid=25268 CPUs=32
-\t (00:00:06) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe D:\a_RemoteRepo\GH.UCAS-NonlinearCircuitExp\NCE-L2-L4 第二章-正弦振荡器模块设计\NCE-02 Sinusoidal Oscillator Board\sources\NCE_L2-L4_osc.brd
-\t (00:00:06) 
-\t (00:00:07) Opening existing design...
-\d (00:00:07) Design opened: D:/a_RemoteRepo/GH.UCAS-NonlinearCircuitExp/NCE-L2-L4 第二章-正弦振荡器模块设计/NCE-02 Sinusoidal Oscillator Board/sources/NCE_L2-L4_osc.brd
-\t (00:00:09) Grids are drawn 50.000, 50.000 apart for enhanced viewability.
-\i (00:00:09) trapsize 48725
-\i (00:00:10) trapsize 46869
-\i (00:00:10) trapsize 48907
-\i (00:00:10) trapsize 46925
-\i (00:00:11) trapsize 41225
-\t (00:00:11) Grids are drawn 50.000, 50.000 apart for enhanced viewability.
-\i (00:00:11) trapsize 41225
-\i (00:00:12) generaledit 
-\i (00:00:12) zoom in 1 
-\i (00:00:12) setwindow pcb
-\i (00:00:12) zoom in 1428.454 1634.580
-\i (00:00:12) trapsize 20613
-\i (00:00:12) zoom in 1 
-\i (00:00:12) setwindow pcb
-\i (00:00:12) zoom in -261.780 1622.212
-\i (00:00:12) trapsize 10306
-\i (00:00:13) zoom in 1 
-\i (00:00:13) setwindow pcb
-\i (00:00:13) zoom in -189.636 1624.273
-\i (00:00:13) trapsize 5153
-\i (00:00:13) zoom out 1 
-\i (00:00:13) setwindow pcb
-\i (00:00:13) zoom out -122.645 1641.794
-\i (00:00:13) trapsize 10306
-\i (00:00:13) zoom out 1 
-\i (00:00:13) setwindow pcb
-\i (00:00:13) zoom out -122.645 1641.794
-\i (00:00:13) trapsize 20613
-\i (00:00:33) status 
-\i (00:00:33) generaledit 
-\i (00:00:34) setwindow form.status
-\i (00:00:34) FORM status drc_update  
-\t (00:00:34) Running DRC, wait...
-\t (00:00:34) Performing DRC...
-\t (00:00:34) The number of threads for DRC checking is reduced from 32 to the maximum supported (16).
-\t (00:00:34) Multithreaded DRC update (16 threads).
-\t (00:00:34) No DRC errors detected.
-\t (00:00:34) DRC done.
-\i (00:00:38) FORM status done  
-\i (00:00:40) setwindow pcb
-\i (00:00:40) exit 
-\e (00:00:40) Do you want to save the changes you made to NCE_L2-L4_osc.brd?
-\i (00:00:42) fillin yes 
-\t (00:00:43)     Journal end - Sat Nov 22 16:07:31 2025
+\t (00:00:01) allegro 16.6-2015 S115 (v16-6-112JF) Windows 32
+\t (00:00:01)     Journal start - Sat Nov 22 23:02:05 2025
+\t (00:00:01)         Host=YIDING-LEGION User=13081 Pid=57592 CPUs=32
+\t (00:00:01) CmdLine= D:\aa_my_apps_main\Cadence_SPB_16p6\SPB_16.6\tools\pcb\bin\allegro.exe D:\a_RemoteRepo\GH.UCAS-NonlinearCircuitExp\NCE-02 Sinusoidal Oscillator Board\uploads\exp2_osc.brd
+\t (00:00:01) 
+\t (00:00:03) Opening existing design...
+\d (00:00:03) Design opened: D:/a_RemoteRepo/GH.UCAS-NonlinearCircuitExp/NCE-02 Sinusoidal Oscillator Board/uploads/exp2_osc.brd
+\i (00:00:03) trapsize 22911
+\i (00:00:03) trapsize 22528
+\i (00:00:03) trapsize 22976
+\i (00:00:03) trapsize 23160
+\i (00:00:04) trapsize 20613
+\i (00:00:04) trapsize 20613
+\i (00:00:04) generaledit 
+\i (00:00:07) exit 
+\t (00:00:07)     Journal end - Sat Nov 22 23:02:11 2025
