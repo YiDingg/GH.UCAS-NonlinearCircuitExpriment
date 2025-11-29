@@ -88,13 +88,11 @@
 \section{实验仪器}
 
 \begin{enumerate}
-\item 小信号谐振放大器实验板 (序列号 ……)
-\item 示波器 RIGOL MSO2202A  (序列号 ……)
-\item 信号发生器 GW INSTEK AFG-2225  (序列号 ……)
-\item 万用表 LINIT- UT61A (序列号 ……)
+\item 高频实验箱 - 小信号谐振放大器实验板 (031132201809392)
+\item 示波器 RIGOL MSO2202A  (080103201901376)
+\item 信号发生器 GW INSTEK AFG-2225  (080102201901355)
+\item 万用表 LINIT- UT61A (C181848639)
 \end{enumerate}
-
-
 
 
 \section{实验原理}
@@ -175,7 +173,6 @@ A_v &:= \frac{v_{out}}{v_{in}} \\
 
 \section{实验结果与分析}
 
-\subsection{小信号调谐放大器的频率响应}
 
 先设置信号发生器输出幅度为 $v_{sig,amp} = 25 \ \mathrm{mV}$ (50 mVpp) @ 10 MHz，用示波器监测电路的输入输出情况。调整可变电阻和电容，直到电路具有合适的直流工作点，效果如 Figure \ref{fig: io waveforms} 所示。
 
@@ -285,6 +282,64 @@ Q = \frac{f_0}{\mathrm{BW}_{-3\mathrm{dB}}} = 14.4514
 本实验所用的小信号谐振放大器由两级构成，整体增益较高且 phase shift 较大。虽然电路中没有直接的反馈路径，但由于电路布局和元器件的寄生参数等原因 (尤其晶体管的 parasitic base-collector capacitor $C_{\pi}$, 也常记为 $C_{BE}$) ，仍然可能产生寄生反馈，一旦满足了自激振荡的起振条件 $|A_v(f_{osc})| = 1\ @\ \angle A_v(f_{osc}) = -180^\circ $，就会导致放大器产生自激振荡，输出端口出现持续的正弦波信号。此外，如果放大器的谐振频率设置不当 (例如两级谐振频率完全相等)，也可能导致频率响应曲线过于尖锐，增加了自激振荡的风险。
 
 可通过在输入或输出端添加补偿网络 (例如 RC 网络) 来降低避免自激振荡的产生。此外，合理调整谐振频率，使两级谐振频率略有差异，也有助于降低自激振荡风险。
+
+\subsection{从频谱角度计算信号电压幅度时，除积分法之外还有哪些方法？}
+
+在本实验，我们采取的方法是：先计算未经窗函数处理的时域信号的频谱，再用积分法从频谱中计算信号功率，进而折算为电压幅度。这种方法的优点是简单直接，但缺点是频谱泄露现象会影响计算精度。
+
+事实上，学界/业界最常用的方法是：在时域信号上先乘以一个窗函数 (window function)，例如 Hanning 窗、Hamming 窗或 Blackman 窗等，然后再计算频谱。加入窗函数后，频谱泄露现象会大大减弱，从而提高信号幅度计算的准确性。但是注意引入窗函数后，频谱幅度和功率有所衰减，需要对傅里叶结果进行矫正 (correction)，具体矫正系数取决于所用窗函数的类型。
+
+\newpage
+
+作为一个例子，不妨设置被采样的原始信号为：
+\begin{gather}
+v(t) = 
+(1 + A_{n1}(t)) \cdot \cos(2 \pi f_0 t + \phi_{n1}(t)) + 
+(0.1 + A_{n2}(t)) \cdot \cos(2 \pi f_1 t + \phi_{n2}(t)) + 
+V_{n}(t)
+\\ 
+\mathrm{where\ } f_0 = 1 \ \mathrm{kHz},\ f_1 = 2 \ \mathrm{kHz} \mathrm{\ and\ } A_{n},\ \phi_{n},\ V_{n} \mathrm{\ denote\ amplitude,\ phase,\ voltage\ noise,\ respectively.}
+\end{gather}
+
+
+然后对比其在不同窗函数下的频谱结果，结果如 Figure \ref{fig: window function comparison} 所示 (Uniform, Hanning and Flattop)。图中左半部分为时域信号乘以窗函数后的结果，右半部分为矫正后的功率谱 (Power Spectrum)。可以看出，三种不同窗函数 (Unitorm, Hanning, Flattop) 都能显示出 1 kHz 和 2 kHz 两个信号分量，但频谱泄露程度有所不同，Hanning 和 Flattop 窗函数的频谱泄露明显小于 Uniform (no window) 的结果。
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-03 Small-Signal LNA/assets/2025-11-29_09-01-05__NCE-03_window.pdf}
+    \caption{Comparison of Different Window Functions (Uniform, Hanning and Flattop) in Time-Domain and Frequency-Domain}
+    \label{fig: window function comparison}
+\end{figure}
+
+
+从离散频谱结果计算信号频率/幅度/功率的理论详见下面这篇文献，我们这里直接给出关键计算公式：
+
+\begin{graybox}
+[1] Brandt, A., 2011. Noise and vibration analysis: signal analysis and experimental procedures, John Wiley \& Sons, doi: 10.1002/9780470978160.
+\end{graybox}\noindent\vspace*{-10mm}
+\begin{gather}
+\mathrm{Extracted\ Frequency:\ \ } f_0 = \frac{\displaystyle \sum_{n = n_0 - L}^{n_0 + L} \left[P[n] \cdot (n \Delta f)\right] }{\displaystyle \sum_{n = n_0 - L}^{n_0 + L} P[n]} \\
+\mathrm{Corrected\ Power:\ \ } P_{0,cor} = \mathrm{ECF}\times \sum_{n = n_0 - L}^{n_0 + L} P[n] \\
+\mathrm{Corrected\ Amplitude:\ \ } A_{0,cor} = \sqrt{2 \times P_{0,cor}}
+\end{gather}
+where:
+\begin{enumerate}
+\item $P[n]$ is the single-sided power spectrum obtained from DFT;
+\item $n_0$ is the index of the frequency bin closest to the target signal frequency $f_0$;
+\item $\Delta f = f_s/N$ is the frequency resolution;
+\item $L$ denotes the half width of the integration window;
+\item ECF is the Energy Correction Factor for the used window function, which is exactly 1 for Uniform window (no window).
+\end{enumerate}
+
+三种窗函数的积分结果 (主信号频率/幅度/功率计算结果) 如 Figure \ref{fig: window function calculation comparison} 所示。图中可以看出，在当前信号和采样参数下，Hanning 窗函数收敛速度最快，计算结果最接近真实值，Flattop 窗函数次之，Uniform 窗函数 (无窗函数) 收敛最慢，且频率收敛结果偏离真实值较多。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-03 Small-Signal LNA/assets/2025-11-29_09-21-14__NCE-03_window_cal.pdf}
+    \caption{Comparison of Different Window Functions in Signal Frequency, Amplitude, and Power Calculation}
+    \label{fig: window function calculation comparison}
+\end{figure}
+
+除上述方法外，还有一些其他方法可以从频谱角度计算信号功率/幅度，比如 “DFS-based method (直接在目标频率处对采样序列进行离散傅里叶级数展开)” 等，这里不多赘述。
 
 
 
