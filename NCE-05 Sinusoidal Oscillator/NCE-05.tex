@@ -276,7 +276,7 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC__dcPoint_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/LC__dcPoint_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (LC oscillator)}
     \label{fig__lc_osc_dc_working_point}
 \end{figure}
@@ -309,13 +309,13 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_C2_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/LC_C2_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. C2 (LC oscillator)}
     \label{fig__lc_osc_feedback_factor_C2}
 \end{figure}
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_F_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/LC_F_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (LC oscillator)}
     \label{fig__lc_osc_feedback_factor}
 \end{figure}
@@ -395,7 +395,7 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal__dcPoint_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/Crystal__dcPoint_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (Crystal oscillator)}
     \label{fig__crystal_osc_dc_working_point}
 \end{figure}
@@ -428,13 +428,13 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_C2_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/Crystal_C2_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. capacitance $C_2$ (Crystal oscillator)}
     \label{fig__crystal_osc_feedback_factor_C2}
 \end{figure}
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_F_vs_freq.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/Crystal_F_vs_freq.pdf}
     \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (Crystal oscillator)}
     \label{fig__crystal_osc_feedback_factor}
 \end{figure}
@@ -516,7 +516,7 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 实际应用中用作参考频率源的振荡器，其输出波形质量要求较高，应尽量接近理想正弦波形，且保持频率和幅度的稳定。不幸的是，尽管我们已经尝试了“调整直流工作点”和“在输出端接悬空负载线”等方法来改善LC/Crystal 振荡器的输出波形，但本次实验中所得到的输出\textbf{波形质量基本都很差}，存在明显的失真和自激现象，仅在接有悬空负载线的个别参数下不出现自激振荡，但波形失真仍然较严重，如 Figure \ref{fig__four_waveform} 所示：
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/four_waveform.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/four_waveform.pdf}
     \caption{Output waveforms of LC/crystal oscillators under different conditions}
     \label{fig__four_waveform}
 \end{figure}
@@ -524,7 +524,7 @@ Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、
 \noindent 不妨对上图第三个波形 (Crystal oscillator w/o floating load line) 作详细讨论，其傅里叶分析结果如下：
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/h-freq self-oscillation.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/h-freq self-oscillation.pdf}
     \caption{Fourier analysis of the 3rd waveform in Figure \ref{fig__four_waveform} (crystal oscillator w/o floating load line)}
     \label{fig__fourier_analysis}
 \end{figure}
@@ -537,7 +537,7 @@ f_0 = 284.3102 \ \mathrm{MHz},\quad A_0 = 49.2009 \ \mathrm{mV_{amp}}
 \end{gather}
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/h-freq self-oscillation (hanning).pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/h-freq self-oscillation (hanning).pdf}
     \caption{High-frequency self-oscillation extraction using Hanning window + integration method}
     \label{fig__high_freq_self_oscillation_hanning}
 \end{figure}
@@ -545,20 +545,20 @@ f_0 = 284.3102 \ \mathrm{MHz},\quad A_0 = 49.2009 \ \mathrm{mV_{amp}}
 在得到上述四个有自激或无自激的波形后，由于后续实验多次调整过电路参数，实验结束再来调整时，\textbf{甚至难以复现没有高频自激的波形}，说明\textbf{本次实验所用的振荡器电路的设计存在较大缺陷}。导致环路增益在约 284.3102 MHz 处大于 1 (相位裕度早已小于零)，从而引发高频自激振荡，严重影响了输出波形质量。
 
 
-\subsection{本次实验的 LC/Crystal 振荡器的相位噪声性能如何，能否满足实际通信系统的参考频率源要求？}
+\subsection{本次实验的 LC/Crystal 振荡器的相位噪声性能如何？能否满足实际系统的参考频率源要求？}
 
 相位噪声这部分涉及的理论基础较多，包括但不限于 phase noise 的定义和计算方法、各种 jitter 类型的定义和计算方法等，由于篇幅有限，这里不再赘述。若无特别说明，本文利用 zero-crossing method 提取相位时间序列，计算相位噪声谱。
 
 四个波形中的第二、第四个波形 (LC/Crystal oscillator w/i floating load line) 基本观察不到自激振荡，仅带有一定波形失真，对其进行相位噪声分析，结果如 Figure \ref{fig__lc_phase_noise} 和 Figure \ref{fig__crystal_phase_noise} 所示：
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_phase_noise.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/LC_phase_noise.pdf}
     \caption{Phase noise analysis of the 2nd waveform in Figure \ref{fig__four_waveform} (LC oscillator w/i floating load line)}
     \label{fig__lc_phase_noise}
 \end{figure}
 
 \begin{figure}[H]\centering
-    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_phase_noise.pdf}
+    \includegraphics[width=\columnwidth]{NCE-05 Sinusoidal Oscillator/assets/Crystal_phase_noise.pdf}
     \caption{Phase noise and jitter analysis of the 4th waveform in Figure \ref{fig__four_waveform} (Crystal oscillator w/i floating load line)}
     \label{fig__crystal_phase_noise}
 \end{figure}
@@ -611,7 +611,7 @@ f_0 = 284.3102 \ \mathrm{MHz},\quad A_0 = 49.2009 \ \mathrm{mV_{amp}}
 }\end{center}\addcontentsline{toc}{section}{附录 B\hspace*{6pt} 实验预习报告} 
 \vspace*{\fill}
 \thispagestyle{fancy} 
-\includepdf[pages={-}]{NCE-05 LC Sinusoidal Oscillator/preview/NCE-05 (preview report).pdf}
+\includepdf[pages={-}]{NCE-05 Sinusoidal Oscillator/preview/NCE-05 (preview report).pdf}
 
 
 % 附录
