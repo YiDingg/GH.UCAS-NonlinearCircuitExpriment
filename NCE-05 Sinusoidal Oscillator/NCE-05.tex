@@ -1,0 +1,673 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{NCE-05 LC/Crystal Oscillator (2025.12.04, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 实\ \ 验\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.3cm} LC/Crystal Sinusoidal Oscillator \hspace{0.3cm}}
+%
+    }\hspace{0.2cm}
+    指导教师：\uline{\hspace{0.2cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.2cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.12.04}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+
+
+% 生成目录
+\setcounter{tocdepth}{3}  % 目录深度为 2（不显示 subsubsection）
+\noindent\tableofcontents\thispagestyle{fancy}   % 显示页码、页眉等
+%\newpage
+\vspace{0.5cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{实验目的}
+
+\begin{enumerate}
+\item 掌握正弦波振荡电路的相关理论
+\item 掌握电容三点式 LC 振荡电路的基本原理，熟悉各元件功能；熟悉静态工作点、
+耦合电容、反馈系数、等效 Q 值对振荡器振荡幅度和频率的影响。
+\item 比较 LC 振荡器和晶体振荡器的频率稳定度，加深对晶体振荡器频率稳定度较高
+的原因的理解
+\end{enumerate}
+
+
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 高频实验箱 - LC/Crystal 正弦波振荡电路实验板 (031132201809392)
+\item 示波器 RIGOL MSO2202A  (080103201901376)
+\item 信号发生器 GWINSTEK AFG-2225  (080102201901355)
+\item 万用表 LINIT- UT61A (C181503983)
+\end{enumerate}
+
+\section{实验原理}
+
+\subsection{LC Sinusoidal Oscillator}
+
+三点式 LC 正弦振荡器 (three-point LC sinusoidal oscillator, \textbf{后文简称 TPSO}) 是正弦振荡器最常见的拓扑结构之一，它利用 LC 谐振回路作为频率选择网络，通过正反馈实现自激振荡。
+
+\noindent 根据反馈网络的不同，三点式 LC 振荡器主要分为以下三种类型：
+\begin{enumerate}
+\item Colpitts Oscillator (考毕兹): 最基本的电容式 TPSO (three-point sinusoidal oscillator)，由两个电容和一个电感构成谐振回路；
+\item Clapp Oscillator (克拉泼): 在 Colpitts Oscillator 基础上，电感支路串联一个小电容以提高振荡稳定性；
+\item Seiler Oscillator (西勒): 在 Clapp Oscillator 基础上，电感两端并联一个可变电容以扩大调谐范围。
+\end{enumerate}
+
+~
+
+\noindent 下面分别对其这三种 LC 振荡器作简要介绍。
+
+\newpage
+\subsubsection{Colpitts Oscillator (考毕兹振荡器)}
+
+
+Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、两个电容和一个电感构成核心振荡部分，如 Figure \ref{fig__colpitts_oscillator} 所示。其结构最为简单，但存在一个主要缺点：反馈系数由电容比值 $\frac{C_1}{C_2}$ 决定，当通过可变电容 $C_1$ 或 $C_2$ 来调整振荡频率时，会不可避免地改变反馈系数，引起输出振幅不稳定甚至停振。
+
+\begin{gather}
+\omega_{osc} \approx \omega_0 = \frac{1}{\sqrt{L C_{\Sigma}}},\quad C_{\Sigma} = C_1 \parallel C_2 = \frac{C_1 C_2}{C_1 + C_2} 
+\\ 
+\text{start-oscillation condition:}\quad g_m > \frac{\left(1 - \omega_{osc}^2 L C_2\right)}{R_{L,eq}}  + \frac{\left(1 - \omega_{osc}^2 L C_1\right)}{R_e\parallel r_{\pi}}
+\\ 
+\text{where:}\quad R_{L,eq} = R_L \parallel R_p,\ R_p = \omega_{osc} L Q_0
+\end{gather}
+\vspace*{-1cm}
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (1).pdf}
+    \caption{Colpitts oscillator (考毕兹振荡器) schematic and the high-frequency equivalent circuit}
+    \label{fig__colpitts_oscillator}
+\end{figure}
+
+\subsubsection{Clapp Oscillator (克拉泼振荡器)}
+
+如 Figure \ref{fig__clapp_oscillator} 所示，Clapp Oscillator (克拉泼振荡器) 在 Colpitts (考毕兹) 的电感支路中串联了一个小电容 $C_3$，使得回路的总谐振电容主要由这个数值较小的 $C_3$ 决定，而原来负责提供反馈的 $C_1$ 和 $C_2$ 可以取较大值；这样，使用可变电容 C3 来调整振荡频率时，对反馈系数的影响就微乎其微，大大提高了频率稳定性。然而，克拉泼电路引入了一个新限制：为了保持 $C_3$ 对总电容的主导作用，其值必须很小，这导致谐振时回路阻抗 (等效负载阻抗) 降低。因此，当调高频率 (减小 $C_3$) 时，振荡幅度会显著下降，使得它在高频段的调谐范围很窄，实用性受限。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (2).pdf}
+    \caption{Clapp oscillator (克拉泼振荡器) schematic and the high-frequency equivalent circuit}
+    \label{fig__clapp_oscillator}
+\end{figure}
+
+\subsubsection{Seiler Oscillator (西勒振荡器)}
+
+如 Figure \ref{fig__seiler_oscillator} 所示，Seiler Oscillator (西勒振荡器) 是 Clapp (克拉泼) 电路的进一步改良，在电感两端并联了一个可变电容 $C_4$ (其它三个电容不变)，由 $C_4$ 来调节振荡频率。这种设计的妙处在于，调谐时不仅不影响反馈系数，而且回路阻抗 (等效负载阻抗) 在很宽的频率范围内较为平缓。因此，西勒振荡器在保持高频率稳定性的同时，获得了非常宽的调谐范围，且在整个范围内输出幅度较为均匀，特别适合于需要宽范围、高稳定度调谐的场合，使在实际应用中更为常见。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (3).pdf}
+    \caption{Seiler oscillator (西勒振荡器) schematic and the high-frequency equivalent circuit}
+    \label{fig__seiler_oscillator}
+\end{figure}
+
+
+\subsection{Quartz Crystal Oscillators}
+
+晶体正弦振荡器 (crystal sinusoidal oscillator, \textbf{后文简称 CSO}) 是利用石英晶体的压电效应和高品质因数特性来实现高频率稳定振荡的电路。
+
+晶体振荡器的核心是石英晶体谐振器 (quartz crystal resonator)，其等效电路如 Figure \ref{fig__crystal_equivalent_circuit} 所示。晶体谐振器在其串联谐振频率 $\omega_s$ 和并联谐振频率 $\omega_p$ 附近表现出极高的品质因数 $Q$，使得它能够在给定频率范围上实现非常稳定的振荡。
+
+具体而言，石英晶体 (quartz crystal) 的等效电路、关键公式和阻抗特性如下：
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.62\columnwidth}\centering
+    \includesvg[height=190pt]{assets/quartz crystal.svg}
+    \caption{Quartz crystal equivalent circuit}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.38\columnwidth}\centering
+    \includegraphics[height=200pt]{assets/quartz crystal vs freq.png}
+    \caption{Impedance/reactance vs. frequency characteristic}
+\end{subfigure}
+\caption{Quartz crystal equivalent circuit and its impedance characteristic}
+\label{fig__crystal_equivalent_circuit}
+\end{figure}
+
+\newpage
+\subsection{实验电路简要分析}
+
+本次实验电路如 Figure \ref{fig__oscillator_experiment_circuit} 所示。电路共分为两级，第一级为 LC/Crystal 正弦波振荡电路，第二级为 Emitter Follower (Common Collector) 缓冲输出级，用于提高带负载能力，同时降低输出端负载对振荡电路的影响。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/oscillator.png}
+    \caption{Schematic of LC/crystal sinusoidal oscillator experiment circuit}
+    \label{fig__oscillator_experiment_circuit}
+\end{figure}
+
+\noindent 通过改变跳线 J1、J2 的连接方式，可以实现两种不同类型的振荡器电路：
+\begin{enumerate}
+\item LC Sinusoidal Oscillator: 保持 J3 连接，断开 J1 而连接 J2，构成 LC 正弦波振荡器，通过可变电容 CV2 和 J4/J5 来微调振荡频率；
+\item Crystal Sinusoidal Oscillator: 保持 J3 连接，断开 J2 而 连接 J1，构成晶体正弦波振荡器，通过可变电容 CV1 来微调振荡频率。
+\end{enumerate}
+
+
+
+\section{实验内容与步骤}
+
+\begin{redbox}
+注：(1) 由于本次实验所有数据均需导出到电脑在 MATLAB 中进行分析和处理，因此报告中不再单独给出用于记录数据的空白表格，仅在数据处理完成后附上得到的图片或结果表格 (实验中注意保存好原始数据文件以备后续处理使用)；
+(2) 本次实验过程中，示波器探头默认选择 X10 档，且每次更改电路连接前需要先断电。
+\end{redbox}
+
+
+\subsection{LC Sinusoidal Oscillator}
+
+
+\subsubsection{直流工作点对振荡器的影响}
+
+\begin{enumerate}
+\item 调整电阻 RW1，用示波器在 TP1 测量晶体管的 Emitter 电流情况 $I_{E} = \frac{V_{TP1}}{R_4}$，在 TP2 (OUT) 处测量振荡频率和幅度，观察电流 $I_{E}$ 对振荡工作状态 (频率和幅度) 的影响。
+\item 将示波器数据导出到电脑，使用 MATLAB 对数据进行分析，绘制 $I_{e,DC}$ 与振荡频率 $f_{osc}$、振荡幅度 $V_{osc,amp}$ 的关系曲线。
+\item 可能用到的电路参数：$R_4 = 1\ \mathrm{k}\Omega$
+\end{enumerate}
+
+\subsubsection{反馈系数对振荡器的影响}
+
+\begin{enumerate}
+\item 改变跳线 J3/J4/J5 的连接方式，相当于调整位于 Collector-GND 之间电容 $C_2$ 的值，从而改变反馈系数 $F = \frac{C_1}{C_1 + C_2}$，其中 $C_2 = J_3\cdot C_3 + J_4 \cdot C_4 + J_5 \cdot C_5$
+\item 将示波器数据导出到电脑，使用 MATLAB 对数据进行分析，绘制反馈系数 $F$ 与振荡频率 $f_{osc}$、振荡幅度 $V_{osc,amp}$ 的关系曲线。
+\item 可能用到的电路参数：$C_1 = 100 \ \mathrm{pF},\ C_3 = 100 \ \mathrm{pF},\ C_4 = 200 \ \mathrm{pF},\ C_5 = 200 \ \mathrm{pF}$
+\end{enumerate}
+
+\subsubsection{测量振荡器的可调频率范围}
+
+根据前两小节得到的结果，设置合适的静态工作点和反馈系数，使得振荡器能够稳定振荡。然后保持其它参数不变，调节可变电容 CV2，同时用示波器在 TP2 (OUT) 处测量输出振荡信号，将采样数据导出到电脑，使用 MATLAB 提取振荡频率 $f_{osc}$ 和振荡幅度 $V_{osc,amp}$。最终得到当前设置下振荡器的最大可调频率范围及对应的振荡幅度变化情况。
+
+\subsubsection{分钟量级频率漂移测量}
+
+设置合适的静态工作点和反馈系数，待电路稳定后，每隔 \textbf{一分钟} 用示波器在 OUT 端测量一次，导出数据到电脑并使用 MATLAB 提取振荡频率 $f_{osc}$。共计测量十次，记录每次测量的时间和对应的振荡频率值，绘制频率随时间变化的曲线，并计算相对变化量 $\frac{\Delta f_{osc}}{f_{osc,0}}$，由此评估振荡器的频率漂移程度。
+
+
+\subsubsection{正弦振荡信号相位噪声测量与分析}
+
+设置合适的静态工作点和反馈系数，待电路稳定后，使用示波器对输出信号进行采样，导出数据到电脑并使用 MATLAB 对信号进行分析，计算并绘制相位噪声谱，分析振荡器的相位噪声特性。
+
+
+
+\subsection{Crystal Sinusoidal Oscillator}
+
+
+连接跳线 J1 而断开 J2，构成晶体正弦波振荡器。然后重复上一小节的各项实验内容与步骤，记录各项数据并进行分析和昨图。
+
+\subsection{Comparison between LC and Crystal Sinusoidal Oscillators}
+
+根据前两小节得到的 LC/Crystal Oscillator 各项性能数据，进行对比分析，重点比较两种振荡器在频率稳定度、调谐范围和相位噪声等方面的差异，并结合理论简要分析其原因。
+
+\newpage
+\section{实验结果与分析}
+
+\begin{redbox}
+    若无特别说明，为提高振荡稳定性，本次实验中振荡器输出端均接了一条悬空的负载线，接/不接负载线对振荡波形的影响我们放在思考题再作讨论。
+\end{redbox}
+
+\subsection{LC Sinusoidal Oscillator}
+
+\subsubsection{直流工作点对振荡器的影响}
+
+保持其它参数不变，调整电阻 RW1 以改变三极管的直流工作点，用示波器测量 Emitter 电流和输出信号。记录数据并导出到电脑进行分析，得到振荡频率 $f_{osc}$ 和幅度 $A_{osc}$ (amplitude) 关于直流工作点 $I_{e,DC}$ 的变化情况，结果如 Table \ref{tab__lc_osc_dc_working_point} 和 Figure \ref{fig__lc_osc_dc_working_point} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (LC oscillator)}
+    \label{tab__lc_osc_dc_working_point}
+\begin{tabular}{cccccccccc}\toprule
+    $I_{e,DC} \ \mathrm{(mA)}$        &  2.3821 &  1.5578 &  1.2726 &  0.8310 \\
+    \midrule
+    $f_{osc} \ \mathrm{(MHz)}$        & 10.8526 & 10.8442 & 10.8400 & 10.8237 \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$  &  0.0682 &  0.0313 &  0.0211 &  0.0071 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$    &  0.3694 &  0.2502 &  0.2053 &  0.1194 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$     &  0.7388 &  0.5003 &  0.4105 &  0.2388 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC__dcPoint_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (LC oscillator)}
+    \label{fig__lc_osc_dc_working_point}
+\end{figure}
+
+
+\newpage
+\subsubsection{反馈系数对振荡器的影响}
+
+固定 RW1 为逆时针 1/4 圈不变 (逆时针旋转较多时 RW1 过大，晶体管 $g_m$ 显著减小，环路不能正常起振)，改变跳线 J3/J4/J5 的连接方式以调整反馈系数 $F = \frac{C_1}{C_1 + C_2}$。用示波器测量输出信号，记录数据并导出到电脑进行分析，得到振荡频率 $f_{osc}$ 和幅度 $A_{osc}$ 关于反馈系数 $F$ 的变化情况，如 Table \ref{tab__lc_osc_feedback_factor} 和 Figure \ref{fig__lc_osc_feedback_factor} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (LC oscillator)}
+    \label{tab__lc_osc_feedback_factor}
+\begin{tabular}{cccccccccc}\toprule
+    $C_{2} \ \mathrm{(pF)}$          &  100.0  &  200.0  &  300.0  &  400.0  &  500.0  \\
+    $F$ (FB factor)                  &  1.0000 &  0.5000 &  0.3333 &  0.2500 &  0.2000 \\
+    \midrule                
+    $I_{e,DC} \ \mathrm{(mA)}$       &  1.6477 &  1.6144 &  1.5688 &  1.5266 &  1.5186 \\
+    $f_{osc} \ \mathrm{(MHz)}$       & 10.7282 & 10.7268 & 10.7045 & 10.6839 & 10.6725 \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$ &  0.0262 &  0.0247 &  0.0200 &  0.0066 &  0.0080 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$   &  0.2289 &  0.2224 &  0.2001 &  0.1147 &  0.1268 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$    &  0.4578 &  0.4447 &  0.4002 &  0.2295 &  0.2536 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_C2_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. C2 (LC oscillator)}
+    \label{fig__lc_osc_feedback_factor_C2}
+\end{figure}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_F_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (LC oscillator)}
+    \label{fig__lc_osc_feedback_factor}
+\end{figure}
+
+
+\subsubsection{振荡器的可调频率范围}
+
+固定 RW1 为逆时针 1/4 圈不变 (逆时针旋转较多时 RW1 过大，晶体管 $g_m$ 显著减小，环路不能正常起振)，固定反馈系数为 1 不变 (C1 = C2 = 100 pF)，调节可变电容 CV2 以改变振荡频率。得到振荡频率 $f_{osc}$ 和幅度 $A_{osc}$ 关于电容 CV2 的变化情况，结果如下：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Frequency tuning range (LC oscillator) @ C2 = 100 pF, RW1 = 1/4 turn CCW (counterclockwise)}
+    \label{tab__lc_osc_tuning_range}
+\begin{tabular}{cccccccccc}\toprule
+    CV2 (variable capacitor)         & min cap & max cap \\
+    \midrule                           
+    $I_{e,DC} \ \mathrm{(mA)}$       &  2.5510 &  2.3858 \\
+    $f_{osc} \ \mathrm{(MHz)}$       & 12.5314 (max) & 10.7139 (min) \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$ &  0.1510 &  0.0707 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$   &  0.5495 &  0.3760 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$    &  1.0990 &  0.7521 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+总的来看变化趋势符合预期，即电容值最大时振荡频率最低，电容值最小时振荡频率最高，两者保持负相关。
+结合前文对电路工作原理的分析，三极管的等效输出阻抗与振荡角频率正相关，故随着电容增大，振荡频率减小，使得等效输出负载减小，增益减小，故输出电压幅度减小。表中输出电压幅度随电容增大而减小，符合理论预期。
+
+\subsubsection{分钟量级频率漂移测量}
+
+保持 RW1 为逆时针 1/4 圈，反馈系数为 1 不变 (C1 = C2 = 100 pF)，每隔一分钟测量一次振荡频率，共计测量十次，结果如 Table \ref{tab__lc_osc_freq_drift} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距为 1.5 倍
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Frequency drift measurement (LC oscillator) @ C2 = 100 pF, RW1 = 1/4 turn CCW (counterclockwise)}
+    \label{tab__lc_osc_freq_drift}
+\resizebox{\linewidth}{!}{   % 设置宽度为 \linewidth 等比例缩放
+\begin{tabular}{ccccccccccccc}\toprule
+    Number   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+    \midrule                           
+    $f_{osc} \ \mathrm{(MHz)}$ & 10.8526 & 10.8524 & 10.8532 & 10.8515 & 10.8520 & 10.8528 & 10.8523 & 10.8519 & 10.8527 & 10.8521 \\
+    \bottomrule
+\end{tabular}
+}\end{table}
+
+由此计算相对频率漂移量：
+\begin{gather}
+\frac{\Delta f}{f_0} = \frac{\max\{f_{osc}\} - \min\{f_{osc}\}}{\mathrm{mean}\{f_{osc}\}} \approx 1.5665\times 10^{-4} = 0.0157 \%
+\end{gather}
+
+\newpage
+\subsection{Crystal Sinusoidal Oscillator}
+\subsubsection{直流工作点对振荡器的影响}
+
+保持其它参数不变，调整电阻 RW1 以改变三极管的直流工作点，用示波器测量 Emitter 电流和输出信号。记录数据并导出到电脑进行分析，得到振荡频率 $f_{osc}$ 和幅度 $A_{osc}$ (amplitude) 关于直流工作点 $I_{e,DC}$ 的变化情况，结果如 Table \ref{tab__crystal_osc_dc_working_point} 和 Figure \ref{fig__crystal_osc_dc_working_point} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (Crystal oscillator)}
+    \label{tab__crystal_osc_dc_working_point}
+\begin{tabular}{cccccccccc}\toprule
+    $I_{e,DC} \ \mathrm{(mA)}$         &  2.4668 &  2.0583 &  1.8018 &  0.9884 \\
+    \midrule
+    $f_{osc} \ \mathrm{(MHz)}$         & 10.6995 & 10.6995 & 10.6995 & 10.6995 \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$   &  0.3313 &  0.2301 &  0.1813 &  0.0553 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$     &  0.8140 &  0.6784 &  0.6021 &  0.3324 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$      &  1.6281 &  1.3569 &  1.2042 &  0.6649 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal__dcPoint_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. DC biasing current $I_{e,DC}$ (Crystal oscillator)}
+    \label{fig__crystal_osc_dc_working_point}
+\end{figure}
+
+\subsubsection{反馈系数对振荡器的影响}
+
+
+固定 RW1 为逆时针 1/4 圈不变 (逆时针旋转较多时 RW1 过大，晶体管 $g_m$ 显著减小，环路不能正常起振)，改变跳线 J3/J4/J5 的连接方式以调整反馈系数 $F = \frac{C_1}{C_1 + C_2}$。用示波器测量输出信号，记录数据并导出到电脑进行分析，得到振荡频率 $f_{osc}$ 和幅度 $A_{osc}$ 关于反馈系数 $F$ 的变化情况，如 Table \ref{tab__lc_osc_feedback_factor} 和 Figure \ref{fig__lc_osc_feedback_factor} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (Crystal oscillator)}
+    \label{tab__crystal_osc_feedback_factor}
+\begin{tabular}{cccccccccc}\toprule
+    $C_{2} \ \mathrm{(pF)}$            &   100.0 &   200.0 &   300.0 &   400.0 &   500.0 \\
+    $F$ (FB factor)                    &  1.0000 &  0.5000 &  0.3333 &  0.2500 &  0.2000 \\
+    \midrule                
+    $I_{e,DC} \ \mathrm{(mA)}$         &  1.9735 &  1.8172 &  1.7374 &  1.6478 &  1.6076 \\
+    $f_{osc} \ \mathrm{(MHz)}$         & 10.6995 & 10.6994 & 10.6994 & 10.6994 & 10.6994 \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$   &  0.2149 &  0.1224 &  0.0709 &  0.0396 &  0.0268 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$     &  0.6556 &  0.4949 &  0.3765 &  0.2815 &  0.2316 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$      &  1.3111 &  0.9897 &  0.7530 &  0.5630 &  0.4632 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_C2_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. capacitance $C_2$ (Crystal oscillator)}
+    \label{fig__crystal_osc_feedback_factor_C2}
+\end{figure}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_F_vs_freq.pdf}
+    \caption{Oscillating frequency $f_{osc}$ and amplitude $A_{osc}$ vs. feedback factor $F$ (Crystal oscillator)}
+    \label{fig__crystal_osc_feedback_factor}
+\end{figure}
+
+
+\subsubsection{振荡器的可调频率范围}
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Frequency tuning range (Crystal Oscillator) @ C2 = 100 pF, RW1 = 1/4 turn CCW (counterclockwise)}
+    \label{tab__crystal_osc_tuning_range}
+\begin{tabular}{cccccccccc}\toprule
+    CV2 (variable capacitor)         & min & max \\
+    \midrule                           
+    $I_{e,DC} \ \mathrm{(mA)}$       &  2.8970 &  2.3575 \\
+    $f_{osc} \ \mathrm{(MHz)}$       & 10.6995 (max) & 10.6988 (min) \\
+    $P_{osc} \ \mathrm{(V_{rms}^2)}$ &  0.3754 &  0.0576 \\
+    $A_{osc} \ \mathrm{(V_{amp})}$   &  0.8665 &  0.3393 \\
+    $V_{osc} \ \mathrm{(V_{pp})}$    &  1.7330 &  0.6786 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+总的来看变化趋势符合预期，即电容值最大时振荡频率最低，电容值最小时振荡频率最高，两者保持负相关。
+结合前文对电路工作原理的分析，三极管的等效输出阻抗与振荡角频率正相关，故随着电容增大，振荡频率减小，使得等效输出负载减小，增益减小，故输出电压幅度减小。表中输出电压幅度随电容增大而减小，符合理论预期。
+
+\subsubsection{分钟量级频率漂移测量}
+
+保持 RW1 为逆时针 1/4 圈，反馈系数为 1 不变 (C1 = C2 = 100 pF)，每隔一分钟测量一次振荡频率，共计测量十次，结果如 Table \ref{tab__crystal_osc_freq_drift} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距为 1.5 倍
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Frequency drift measurement (Crystal oscillator) @ C2 = 100 pF, RW1 = 1/4 turn CCW (counterclockwise)}
+    \label{tab__crystal_osc_freq_drift}
+\resizebox{\linewidth}{!}{   % 设置宽度为 \linewidth 等比例缩放
+\begin{tabular}{ccccccccccccc}\toprule
+    Number   & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+    \midrule                           
+    $f_{osc} \ \mathrm{(MHz)}$ & 10.69951 & 10.69948 & 10.69952 & 10.69947 & 10.69949 & 10.69950 & 10.69946 & 10.69953 & 10.69945 & 10.69954 \\
+    \bottomrule
+\end{tabular}
+}\end{table}
+
+由此计算相对漂移量：
+
+\begin{gather}
+\frac{\Delta f}{f_0} = \frac{\max\{f_{osc}\} - \min\{f_{osc}\}}{\mathrm{mean}\{f_{osc}\}} \approx 8.4116 \times 10^{-6} = 0.000841 \%
+\end{gather}
+
+相比 LC Oscillator, Crystal Oscillator 的频率漂移量显著减小，频率稳定性更好。
+
+
+\subsection{LC/Crystal Oscillator Comparison}
+
+上面两个小节的结果表明，晶体振荡器调谐范围较小 (其实这正是实际参考频率源所希望的特性)，且在频率稳定性方面远优于 LC 振荡器。具体对比如 Table \ref{tab__performance_comparison} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Performance comparison between LC and Crystal Oscillators}
+    \label{tab__performance_comparison}
+\begin{tabular}{cccccccccc}\toprule
+    Parameter          & Center Frequency $f_c = \frac{f_{\max} + f_{\min}}{2}$ & Tuning Factor $K = \frac{f_{\max}}{f_{\min}}$ & Frequency Variation $\frac{\Delta f}{f_0}$  \\
+    \midrule
+    LC Oscillator      & 11.6227 MHz & 1.170 & 1.5665$\times 10^{-4}$ \\
+    Crystal Oscillator & 10.6991 MHz & 1.000065 & 8.4116$\times 10^{-6}$ \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+\section{思考题}
+
+
+\subsection{本次实验的 LC/Crystal 振荡器的输出波形质量如何？是否有明显噪声、失真或其他异常现象？}
+
+实际应用中用作参考频率源的振荡器，其输出波形质量要求较高，应尽量接近理想正弦波形，且保持频率和幅度的稳定。不幸的是，尽管我们已经尝试了“调整直流工作点”和“在输出端接悬空负载线”等方法来改善LC/Crystal 振荡器的输出波形，但本次实验中所得到的输出\textbf{波形质量基本都很差}，存在明显的失真和自激现象，仅在接有悬空负载线的个别参数下不出现自激振荡，但波形失真仍然较严重，如 Figure \ref{fig__four_waveform} 所示：
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/four_waveform.pdf}
+    \caption{Output waveforms of LC/crystal oscillators under different conditions}
+    \label{fig__four_waveform}
+\end{figure}
+
+\noindent 不妨对上图第三个波形 (Crystal oscillator w/o floating load line) 作详细讨论，其傅里叶分析结果如下：
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/h-freq self-oscillation.pdf}
+    \caption{Fourier analysis of the 3rd waveform in Figure \ref{fig__four_waveform} (crystal oscillator w/o floating load line)}
+    \label{fig__fourier_analysis}
+\end{figure}
+
+上图可以看出自激振荡频率约为 284.286 MHz，注意上图 DFT 并没有使用窗函数，为提高计算精确，我们利用 \textbf{“窗函数+积分法”} 提取出高频自激振荡的具体频率和幅度：
+\begin{gather}
+\boxed{
+f_0 = 284.3102 \ \mathrm{MHz},\quad A_0 = 49.2009 \ \mathrm{mV_{amp}}
+}
+\end{gather}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/h-freq self-oscillation (hanning).pdf}
+    \caption{High-frequency self-oscillation extraction using Hanning window + integration method}
+    \label{fig__high_freq_self_oscillation_hanning}
+\end{figure}
+
+在得到上述四个有自激或无自激的波形后，由于后续实验多次调整过电路参数，实验结束再来调整时，\textbf{甚至难以复现没有高频自激的波形}，说明\textbf{本次实验所用的振荡器电路的设计存在较大缺陷}。导致环路增益在约 284.3102 MHz 处大于 1 (相位裕度早已小于零)，从而引发高频自激振荡，严重影响了输出波形质量。
+
+
+\subsection{本次实验的 LC/Crystal 振荡器的相位噪声性能如何，能否满足实际通信系统的参考频率源要求？}
+
+相位噪声这部分涉及的理论基础较多，包括但不限于 phase noise 的定义和计算方法、各种 jitter 类型的定义和计算方法等，由于篇幅有限，这里不再赘述。若无特别说明，本文利用 zero-crossing method 提取相位时间序列，计算相位噪声谱。
+
+四个波形中的第二、第四个波形 (LC/Crystal oscillator w/i floating load line) 基本观察不到自激振荡，仅带有一定波形失真，对其进行相位噪声分析，结果如 Figure \ref{fig__lc_phase_noise} 和 Figure \ref{fig__crystal_phase_noise} 所示：
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/LC_phase_noise.pdf}
+    \caption{Phase noise analysis of the 2nd waveform in Figure \ref{fig__four_waveform} (LC oscillator w/i floating load line)}
+    \label{fig__lc_phase_noise}
+\end{figure}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-05 LC Sinusoidal Oscillator/assets/Crystal_phase_noise.pdf}
+    \caption{Phase noise and jitter analysis of the 4th waveform in Figure \ref{fig__four_waveform} (Crystal oscillator w/i floating load line)}
+    \label{fig__crystal_phase_noise}
+\end{figure}
+
+上图中，周期抖动 $J_c(t)$ 的值出现较明显离散化现象，是因为所用示波器内部 ADC 精度有限 (8-bit)，导致采样波形的上升沿/下降沿位置存在量化误差，从而影响了 zero-crossing method 的提取精度。但从整体来看，上述 LC/Crystal 振荡器的相位噪声/抖动分析结果仍具有较高可靠性。
+
+\noindent LC/Crystal 振荡器的关键相位噪声/抖动指标总结如下：
+
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{Phase noise and jitter performance of the LC/crystal oscillator}
+    \label{tab__phase_noise_performance}
+\begin{tabular}{cccccccccc}\toprule
+    Parameter & The LC Oscillator & The Crystal Oscillator & \\
+    \midrule
+    Nominal Frequency $f_0$             & 12.53 MHz & 10.70 MHz \\
+    RMS Phase Noise $\phi_{n,rms}$      & 0.0259 rad (1.483$^\circ$) & 0.0123 rad (0.702$^\circ$) \\
+    (TE) RMS Edge Jitter $J_{e,rms}$    & 330.3 ps (4.140 mUI) & 183.2 ps (1.960 mUI) \\
+    (PEJ) RMS Period Jitter $J_{p,rms}$ & 232.2 ps (2.910 mUI) & 272.7 ps (2.917 mUI) \\
+    (C2C) RMS C2C Jitter $J_{cc, rms}$ & 395.7 ps (4.960 mUI) & 474.5 ps (5.076 mUI) \\
+    Phase Noise @ 1 kHz Offset      & -101.48 dBc/Hz & -105.76 dBc/Hz \\
+    Phase Noise @ 10 kHz Offset     & -105.74 dBc/Hz & -112.38 dBc/Hz \\
+    Phase Noise @ 100 kHz Offset    & -111.69 dBc/Hz & -112.84 dBc/Hz \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+两张相位噪声/抖动分析图和上表数据均表明，crystal oscillator 的相位噪声/抖动性能更优，不过 LC/crystal 两者都基本能满足一般系统对 10 MHz 级参考频率源的要求 \textbf{(如果不存在高频自激振荡的话)}。
+
+
+
+\subsection{多数同学在本次实验采用示波器光标来测量振荡频率和幅度，这种方法的精度如何，是否能满足实验要求？}
+
+在 LC oscillator 中，振荡频率随电路参数 (如直流工作点、电容值等) 的变化较大，频率测量的精度要求相对较低，示波器光标测量频率的精度虽差强人意，但勉强还能满足实验要求；而在 Crystal oscillator 中则\textbf{完全不能满足频率测量的精度要求}，因为此时频率变化范围极小 (约 10.6995 MHz ± 0.0007 MHz)，示波器光标测量频率的精度远远不能满足实验要求，\textbf{必须使用其它更高精度的测量方法} (如频谱分析) 才能得到较为可靠的结果。
+
+\newpage
+\section*{附录 A\hspace*{20pt} 原始数据记录表}
+\addcontentsline{toc}{section}{附录 A\hspace*{6pt} 原始数据记录表} 
+\thispagestyle{fancy} 
+\noindent \begin{graybox}
+注：本次实验所有数据均以 .txt 格式保存在电脑中，已由赵嘉明助教核验过。由于数据基本都为波形采样数据，整体数据量较多，故此处不再单独附上原始数据。
+\end{graybox}
+
+
+\vspace*{\fill}
+\begin{center}\Huge{\bfseries 
+    附录 B\hspace*{20pt} 实验预习报告
+}\end{center}\addcontentsline{toc}{section}{附录 B\hspace*{6pt} 实验预习报告} 
+\vspace*{\fill}
+\thispagestyle{fancy} 
+\includepdf[pages={-}]{NCE-05 LC Sinusoidal Oscillator/preview/NCE-05 (preview report).pdf}
+
+
+% 附录
+\section*{附录 C \hspace*{20pt} MATLAB Codes}
+\addcontentsline{toc}{section}{附录 C \hspace*{6pt} MATLAB Codes} 
+\thispagestyle{fancy} 
+\lstinputlisting{d:/a_RemoteRepo/GH.MatlabCodes/本科课程代码/Non-Linear Circuits/NCE_05.m}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + tab__              切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+

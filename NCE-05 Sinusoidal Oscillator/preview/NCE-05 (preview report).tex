@@ -1,0 +1,304 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{Preview Report of NCE-05 Oscillator (2025.12.04, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 预\ \ 习\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.3cm} LC/Crystal Sinusoidal Oscillator \hspace{0.3cm}}
+%
+    }\hspace{0.2cm}
+    指导教师：\uline{\hspace{0.2cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.2cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.12.04}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{实验目的}
+
+\begin{enumerate}
+\item 掌握正弦波振荡电路的相关理论
+\item 掌握电容三点式 LC 振荡电路的基本原理，熟悉各元件功能；熟悉静态工作点、
+耦合电容、反馈系数、等效 Q 值对振荡器振荡幅度和频率的影响。
+\item 比较 LC 振荡器和晶体振荡器的频率稳定度，加深对晶体振荡器频率稳定度较高
+的原因的理解
+\end{enumerate}
+
+
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 高频实验箱 - LC/Crystal 正弦波振荡电路实验板 (……)
+\item 示波器 RIGOL MSO2202A  (……)
+\item 信号发生器 GW INSTEK AFG-2225  (……)
+\item 万用表 LINIT- UT61A (……)
+\end{enumerate}
+
+
+\section{实验原理}
+
+\subsection{LC Sinusoidal Oscillator}
+
+三点式 LC 正弦振荡器 (three-point LC sinusoidal oscillator, \textbf{后文简称 TPSO}) 是正弦振荡器最常见的拓扑结构之一，它利用 LC 谐振回路作为频率选择网络，通过正反馈实现自激振荡。
+
+\noindent 根据反馈网络的不同，三点式 LC 振荡器主要分为以下三种类型：
+\begin{enumerate}
+\item Colpitts Oscillator (考毕兹): 最基本的电容式 TPSO (three-point sinusoidal oscillator)，由两个电容和一个电感构成谐振回路；
+\item Clapp Oscillator (克拉泼): 在 Colpitts Oscillator 基础上，电感支路串联一个小电容以提高振荡稳定性；
+\item Seiler Oscillator (西勒): 在 Clapp Oscillator 基础上，电感两端并联一个可变电容以扩大调谐范围。
+\end{enumerate}
+
+~
+
+\noindent 下面分别对其这三种 LC 振荡器作简要介绍。
+
+\newpage
+\subsubsection{Colpitts Oscillator (考毕兹振荡器)}
+
+
+Colpitts Oscillator 是电容式 TPSO 的最基本形式，由一个晶体管、两个电容和一个电感构成核心振荡部分，如 Figure \ref{fig: colpitts_oscillator} 所示。其结构最为简单，但存在一个主要缺点：反馈系数由电容比值 $\frac{C_1}{C_2}$ 决定，当通过可变电容 $C_1$ 或 $C_2$ 来调整振荡频率时，会不可避免地改变反馈系数，引起输出振幅不稳定甚至停振。
+
+\begin{gather}
+\omega_{osc} \approx \omega_0 = \frac{1}{\sqrt{L C_{\Sigma}}},\quad C_{\Sigma} = C_1 \parallel C_2 = \frac{C_1 C_2}{C_1 + C_2} 
+\\ 
+\text{start-oscillation condition:}\quad g_m > \frac{\left(1 - \omega_{osc}^2 L C_2\right)}{R_{L,eq}}  + \frac{\left(1 - \omega_{osc}^2 L C_1\right)}{R_e\parallel r_{\pi}}
+\\ 
+\text{where:}\quad R_{L,eq} = R_L \parallel R_p,\ R_p = \omega_{osc} L Q_0
+\end{gather}
+\vspace*{-1cm}
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (1).pdf}
+    \caption{Colpitts Oscillator (考毕兹振荡器) Schematic and The High-Frequency Equivalent Circuit}
+    \label{fig: colpitts_oscillator}
+\end{figure}
+
+\subsubsection{Clapp Oscillator (克拉泼振荡器)}
+
+如 Figure \ref{fig: clapp_oscillator} 所示，Clapp Oscillator (克拉泼振荡器) 在 Colpitts (考毕兹) 的电感支路中串联了一个小电容 $C_3$，使得回路的总谐振电容主要由这个数值较小的 $C_3$ 决定，而原来负责提供反馈的 $C_1$ 和 $C_2$ 可以取较大值；这样，使用可变电容 C3 来调整振荡频率时，对反馈系数的影响就微乎其微，大大提高了频率稳定性。然而，克拉泼电路引入了一个新限制：为了保持 $C_3$ 对总电容的主导作用，其值必须很小，这导致谐振时回路阻抗 (等效负载阻抗) 降低。因此，当调高频率 (减小 $C_3$) 时，振荡幅度会显著下降，使得它在高频段的调谐范围很窄，实用性受限。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (2).pdf}
+    \caption{Clapp Oscillator (克拉泼振荡器) Schematic and The High-Frequency Equivalent Circuit}
+    \label{fig: clapp_oscillator}
+\end{figure}
+
+\subsubsection{Seiler Oscillator (西勒振荡器)}
+
+如 Figure \ref{fig: seiler_oscillator} 所示，Seiler Oscillator (西勒振荡器) 是 Clapp (克拉泼) 电路的进一步改良，在电感两端并联了一个可变电容 $C_4$ (其它三个电容不变)，由 $C_4$ 来调节振荡频率。这种设计的妙处在于，调谐时不仅不影响反馈系数，而且回路阻抗 (等效负载阻抗) 在很宽的频率范围内较为平缓。因此，西勒振荡器在保持高频率稳定性的同时，获得了非常宽的调谐范围，且在整个范围内输出幅度较为均匀，特别适合于需要宽范围、高稳定度调谐的场合，使在实际应用中更为常见。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/LC 三点式电容振荡器 (3).pdf}
+    \caption{Seiler Oscillator (西勒振荡器) Schematic and The High-Frequency Equivalent Circuit}
+    \label{fig: seiler_oscillator}
+\end{figure}
+
+
+\subsection{Quartz Crystal Oscillators}
+
+晶体正弦振荡器 (crystal sinusoidal oscillator, \textbf{后文简称 CSO}) 是利用石英晶体的压电效应和高品质因数特性来实现高频率稳定振荡的电路。
+
+晶体振荡器的核心是石英晶体谐振器 (quartz crystal resonator)，其等效电路如 Figure \ref{fig: crystal_equivalent_circuit} 所示。晶体谐振器在其串联谐振频率 $\omega_s$ 和并联谐振频率 $\omega_p$ 附近表现出极高的品质因数 $Q$，使得它能够在给定频率范围上实现非常稳定的振荡。
+
+具体而言，石英晶体 (quartz crystal) 的等效电路、关键公式和阻抗特性如下：
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.62\columnwidth}\centering
+    \includesvg[height=190pt]{assets/quartz crystal.svg}
+    \caption{Quartz crystal equivalent circuit}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.38\columnwidth}\centering
+    \includegraphics[height=200pt]{assets/quartz crystal vs freq.png}
+    \caption{Impedance/reactance vs. frequency characteristic}
+\end{subfigure}
+\caption{Quartz Crystal Equivalent Circuit and Its Impedance Characteristic}
+\label{fig: crystal_equivalent_circuit}
+\end{figure}
+
+\newpage
+\subsection{实验电路简要分析}
+
+本次实验电路如 Figure \ref{fig: oscillator_experiment_circuit} 所示。电路共分为两级，第一级为 LC/Crystal 正弦波振荡电路，第二级为 Emitter Follower (Common Collector) 缓冲输出级，用于提高带负载能力，同时降低输出端负载对振荡电路的影响。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/oscillator.png}
+    \caption{Schematic of LC/Crystal Sinusoidal Oscillator Experiment Circuit}
+    \label{fig: oscillator_experiment_circuit}
+\end{figure}
+
+\noindent 通过改变跳线 J1、J2 的连接方式，可以实现两种不同类型的振荡器电路：
+\begin{enumerate}
+\item LC Sinusoidal Oscillator: 保持 J3 连接，断开 J1 而连接 J2，构成 LC 正弦波振荡器，通过可变电容 CV2 和 J4/J5 来微调振荡频率；
+\item Crystal Sinusoidal Oscillator: 保持 J3 连接，断开 J2 而 连接 J1，构成晶体正弦波振荡器，通过可变电容 CV1 来微调振荡频率。
+\end{enumerate}
+
+
+
+\section{实验内容与步骤}
+
+\begin{redbox}
+注：(1) 由于本次实验所有数据均需导出到电脑在 MATLAB 中进行分析和处理，因此报告中不再单独给出用于记录数据的空白表格，仅在数据处理完成后附上得到的图片或结果表格 (实验中注意保存好原始数据文件以备后续处理使用)；
+(2) 本次实验过程中，示波器探头默认选择 X10 档，且每次更改电路连接前需要先断电。
+\end{redbox}
+
+
+\subsection{LC Sinusoidal Oscillator}
+
+
+\subsubsection{静态工作点对振荡器的影响}
+
+\begin{enumerate}
+\item 调整电阻 RW1，用示波器在 TP1 测量晶体管的 Emitter 电流情况 $I_{E} = \frac{V_{TP1}}{R_4}$，在 TP2 (OUT) 处测量振荡频率和幅度，观察电流 $I_{E}$ 对振荡工作状态 (频率和幅度) 的影响。
+\item 将示波器数据导出到电脑，使用 MATLAB 对数据进行分析，绘制 $I_{E,DC}$ 与振荡频率 $f_{osc}$、振荡幅度 $V_{osc,amp}$ 的关系曲线。
+\item 可能用到的电路参数：$R_4 = 1\ \mathrm{k}\Omega$
+\end{enumerate}
+
+\subsubsection{反馈系数对振荡器的影响}
+
+\begin{enumerate}
+\item 改变跳线 J3/J4/J5 的连接方式，相当于调整位于 Collector-GND 之间电容 $C_2$ 的值，从而改变反馈系数 $F = \frac{C_1}{C_1 + C_2}$，其中 $C_2 = J_3\cdot C_3 + J_4 \cdot C_4 + J_5 \cdot C_5$
+\item 将示波器数据导出到电脑，使用 MATLAB 对数据进行分析，绘制反馈系数 $F$ 与振荡频率 $f_{osc}$、振荡幅度 $V_{osc,amp}$ 的关系曲线。
+\item 可能用到的电路参数：$C_1 = 100 \ \mathrm{pF},\ C_3 = 100 \ \mathrm{pF},\ C_4 = 200 \ \mathrm{pF},\ C_5 = 200 \ \mathrm{pF}$
+\end{enumerate}
+
+\subsubsection{测量振荡器的可调频率范围}
+
+根据前两小节得到的结果，设置合适的静态工作点和反馈系数，使得振荡器能够稳定振荡。然后保持其它参数不变，调节可变电容 CV2，同时用示波器在 TP2 (OUT) 处测量输出振荡信号，将采样数据导出到电脑，使用 MATLAB 提取振荡频率 $f_{osc}$ 和振荡幅度 $V_{osc,amp}$。最终得到当前设置下振荡器的最大可调频率范围及对应的振荡幅度变化情况。
+
+\subsubsection{分钟量级频率漂移测量}
+
+设置合适的静态工作点和反馈系数，待电路稳定后，每隔 \textbf{一分钟} 用示波器在 OUT 端测量一次，导出数据到电脑并使用 MATLAB 提取振荡频率 $f_{osc}$。共计测量十次，记录每次测量的时间和对应的振荡频率值，绘制频率随时间变化的曲线，并计算相对变化量 $\frac{\Delta f_{osc}}{f_{osc,0}}$，由此评估振荡器的频率漂移程度。
+
+
+\subsubsection{正弦振荡信号相位噪声测量与分析}
+
+设置合适的静态工作点和反馈系数，待电路稳定后，使用示波器对输出信号进行采样，导出数据到电脑并使用 MATLAB 对信号进行分析，计算并绘制相位噪声谱，分析振荡器的相位噪声特性。
+
+
+
+\subsection{Crystal Sinusoidal Oscillator}
+
+
+连接跳线 J1 而断开 J2，构成晶体正弦波振荡器。然后重复上一小节的各项实验内容与步骤，记录各项数据并进行分析和昨图。
+
+\subsection{Comparison between LC and Crystal Sinusoidal Oscillators}
+
+根据前两小节得到的 LC/Crystal Oscillator 各项性能数据，进行对比分析，重点比较两种振荡器在频率稳定度、调谐范围和相位噪声等方面的差异，并结合理论简要分析其原因。
+
+
+
+\section{思考题}
+
+\subsection{观察 LC 振荡器和晶体振荡器的输出波形，分析噪声来源，并指出如何减小噪声。}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + Tab:               切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+
