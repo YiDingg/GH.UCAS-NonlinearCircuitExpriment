@@ -1,0 +1,379 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{NCE-07 AM Modulation (2025.12.11, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 实\ \ 验\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.6cm} Standard AM Modulation \hspace{0.6cm}}
+%
+    }\hspace{0.4cm}
+    指导教师：\uline{\hspace{0.5cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.5cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.12.11}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+% 生成目录
+\setcounter{tocdepth}{3}  % 目录深度为 2（不显示 subsubsection）
+\noindent\tableofcontents\thispagestyle{fancy}   % 显示页码、页眉等
+%\newpage
+\vspace{0.5cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%% 从预习报告转为正式实验报告时 %%%%%%%%%%%%
+% 1. 将标题中的 "预习报告" 改为 "实验报告"
+% 2. 将页眉中的 "Preview Report of" 删去
+% 3. 在正文前添加目录
+% 4. 在正文后添加附录
+
+
+
+\section{实验目的}
+\begin{enumerate}
+    \item 掌握基于集成模拟乘法器的幅度调制 (AM) 原理与实现方法。
+    \item 理解AM信号频谱结构、功率分配及调制系数 (Modulation Index) 的影响。
+    \item 掌握使用MC1496四象限模拟乘法器实现AM调制的电路配置与调试方法。
+    \item 学会在示波器上测量调制系数并分析基带信号 (原始信号)、载波与已调波之间的关系。
+\end{enumerate}
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 高频实验箱 - 乘法调幅/混频实验板 (031132201809392)
+\item 示波器 RIGOL MSO2202A  (080103201901376)
+\item 信号发生器 GWINSTEK AFG-2225  (080102201901355)
+\item 万用表 LINIT- UT61A (C181503983)
+\end{enumerate}
+
+
+\section{实验原理}
+\subsection{幅度调制基本原理 (Amplitude Modulation) }
+
+\noindent 设基带信号 (原始信号) 和载波 (carrier) 信号分别为：
+\begin{gather}
+v_s(t) = A_s \cos(\omega_s t),\quad v_c(t) = A_c \cos(\omega_c t)
+\end{gather}
+则 Standard (Classic) Amplitude-Modulated Signal (标准幅度调制后的信号，后文简称“调制信号”) 可表示为：
+\begin{gather}
+v_{AM}(t) = A_c \big[ 1 + m \cos(\omega_s t) \big] \cos(\omega_c t),\quad m = \frac{A_s}{A_c}
+\end{gather}
+其中 $m \in (0,\ 1)$ 为幅度调制系数 (std. AM modulation factor)，一般不超过 1，否则会发生过调制 (Overmodulation) 从而引起失真。
+
+
+
+\subsection{幅度调制信号频谱与功率分析}
+\noindent 将上面标准幅度调整后的信号  $v_{AM}(t)$  展开可得：
+\begin{gather}
+v_{AM}(t) = A_c \cos(\omega_c t) + \frac{mA_c}{2} \cos[(\omega_c + \omega_s)t] + \frac{mA_c}{2} \cos[(\omega_c - \omega_s)t]
+\end{gather}
+假设原始信号为理想单频正弦波，此时 $v_{AM}(t)$ 的频谱有且仅有三个频率分量：
+\begin{gather}
+\text{Carrier:\ \ } f_c
+,\quad 
+\text{USB (Upper Side Band):\ \ } f_c + f_s
+,\quad
+\text{LSB (Lower Side Band):\ \ } f_c - f_s
+\\
+P_{\text{total}} = P_c + P_{\text{USB}} + P_{\text{LSB}} = P_c \left( 1 + \frac{m^2}{2} \right),\quad P_{\text{USB}} = P_{\text{LSB}} = \frac{m^2}{4} P_c
+\end{gather}
+
+边带功率随 $m$ 的增大而增加，当 $m = 1$ 时取到最大边带功率 $P_{\text{USB}} = P_{\text{LSB}} = \frac{1}{4} P_c$，此时上下边带功率分别为载波功率的四分之一，意味着大多数功率都被不含信息的载波占据，浪费严重，这也是标准幅度调制效率低下的主要原因。但是由于这种调制和解调设备简单，方便实现，所以仍有不少应用场景。
+
+
+\subsection{MC1496 模拟乘法器工作原理}
+MC1496 为经典的双平衡四象限模拟乘法器 (Gilbert Cell 结构)，内部由三组差分对构成，可实现两路输入信号的线性相乘：
+\begin{gather}
+v_{\text{out}} = k \cdot v_x \cdot v_y
+\end{gather}
+
+在AM调制中，将基带信号 (原始信号)  $v_s(t)$  与直流偏置 $V_0$ 叠加后输入X 端，载波  $v_c(t)$  输入 Y 端，即可在输出端得到 AM Signal:
+\begin{gather}
+v_x(t) = v_s(t) + V_0 = A_s \cos(\omega_s t) + V_0,\quad 
+v_y(t) = v_c(t) = A_c \cos(\omega_c t)
+\\
+v_{out}(t) = k A_c V_0 \left[ 1 + \frac{A_s}{V_0} \cos(\omega_s t) \right] \cos(\omega_c t) = A_c' \left[ 1 + m \cos(\omega_s t) \right] \cos(\omega_c t) 
+\\ 
+\text{where:\ \ }
+A_c' = k A_c V_0,\quad m = \frac{A_s}{V_0}
+\end{gather}
+这恰好符合标准幅度调制信号的形式，也是标准幅度调整最常用的实现方法。
+
+\subsection{实验电路简要分析}
+\noindent 如 Figure \ref{fig__circuit} 所示，实验电路基于 MC1496 构成，外围电路包括：
+\begin{enumerate}
+    \item 偏置电阻网络：设置静态工作点
+    \item 可调电位器RW1、RW2、RW3：分别用于调节输出波形对称性、调制系数和输出幅度
+    \item Emitter Follower (Common Collector) 输出级：提高输出驱动能力，隔离负载对调制电路的影响
+\end{enumerate}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/circuit.png}
+    \caption{MC1496-Based AM Modulation Circuit Used in the Experiment}
+    \label{fig__circuit}
+\end{figure}
+
+\section{实验内容与步骤}
+
+\subsection{实验前跳线设置}
+\begin{enumerate}
+    \item J1、J3、J5：置于 1-2 位置 (调制功能) 
+    \item J2、J8、J9：置于 2-3 位置 (调制功能) 
+    \item IN1：空闲
+    \item IN2：输入基带信号 (原始信号) (1 kHz sine wave @ 300 mVpp) 
+    \item IN3：输入载波信号 (10.7 MHz sine wave @ 500 mVpp)
+\end{enumerate}
+
+\subsection{调节步骤}
+\begin{enumerate}
+    \item 先仅在 IN3 输入载波信号 ，调节 RW1/RW2/RW3 使 OUT 端输出不失真正弦波；
+    \item 然后接入基带信号 (原始信号)，微调 RW1 (对称性) 、RW2 (调制系数 $m$ ) 、RW3 (输出幅度)，使输出为典型 AM 波形；
+    \item 使用示波器对输出波形进行采样，测量最大幅度 $A_{\max}$ 和最小幅度 $A_{\min}$ 并计算调制系数 $m = \frac{A_{\max} - A_{\min}}{A_{\max} + A_{\min}}$。
+    \item 调节 $m$ 分别为 0.2, 0.4 和 0.7，记录对应 $A_{\max}$、$A_{\min}$ 值及输出波形。
+\end{enumerate}
+
+
+
+\newpage
+\section{实验结果与分析}
+
+
+
+\begin{redbox}
+注：由于本次实验我们使用频谱分析 (傅里叶分析) 来分析调制效果和计算调制系数 $m$，因此实验中设置基带信号为 \textbf{100 kHz} 而非讲义上的 \textbf{1 kHz}，这是为了在频谱分辨率相同 (采样频率和点数相同) 的情况下更好地分离载波与边带频率分量，避免采样序列过长导致数据处理困难。
+\end{redbox}
+
+固定载波幅度 $A_c$ 不变，改变基带信号幅度 $A_s$ 以实现不同调制系数 $m$，用示波器对输出波形进行采样，导出到上位机进行傅里叶分析，提取信号幅度并计算调制系数 $m$，结果如 Table \ref{tab__results} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{The Measured Amplitudes under Different Modulation Coefficients}
+    \label{tab__results}
+\begin{tabular}{cccccccccc}\toprule
+    $A_{\text{LSB}}$ (Vamp) & $A_{\text{USB}}$ (Vamp) & $A_c$ (Vamp) & $m$ \\
+    \midrule
+    0.0815 & 0.0815 & 0.4059 & 0.2838 \\
+    0.1358 & 0.1358 & 0.4064 & 0.4727 \\
+    0.2185 & 0.2185 & 0.4058 & 0.7615 \\
+    0.3809 & 0.3809 & 0.4220 & 1.2765 \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+上表中 $A_{\text{LSB}}$、$A_{\text{USB}}$ 和 $A_c$ 分别为下边带、上边带和载波的幅度 (Vamp)，均由频谱分析结果中提取，调制系数 $m$ 由下面公式计算得到：
+\begin{gather}
+m = \sqrt{\frac{A_{\text{USB}}^2 + A_{\text{LSB}}^2}{A_c^2}} = \frac{\sqrt{A_{\text{USB}}^2 + A_{\text{LSB}}^2}}{A_c}
+\end{gather}
+
+四种不同调制系数下的输入输出波形和频谱如 Figure \ref{fig__AM_1} $\sim$ Figure \ref{fig__AM_4} 所示，从这四张图中可以清晰地看到，随着调制系数 $m$ 的增大，输出波形的包络线变化越来越明显，频谱中边带幅度也越来越大，符合标准幅度调制的理论分析结果。还观察到当 $m > 1$ 时 (这里是指 Figure \ref{fig__AM_4} 中 $m = 1.2765$)，输出波形出现了明显的失真现象 (过调制)，这也是符合预期的。
+
+\noindent 除此之外，我们还能从频谱图中观察下面几点：
+\begin{enumerate}
+    \item 载波信号中心频率 $f_c = 10.7$ MHz，基带信号中心频率 $f_s = 100$ kHz，均符合预期设置；
+    \item 位于 10.6 MHz 和 10.8 MHz 处的上下边带幅度 (近似) 相等 $A_{\text{USB}} = A_{\text{LSB}}$，符合标准幅度调制的理论分析结果；
+    \item 随着调制系数 $m$ 的增大，边带幅度逐渐增大，并且基带谐波 (例如 10.5 MHz 和 10.9 MHz 处的二次谐波) 也逐渐增大，暗示乘法器逐渐显示出非线性特性；例如 $m = 0.2838$ 时基本观察不到 10.5 MHz 和 10.9 MHz 处的二次谐波 (-40 dBV 以下)，但 $m = 0.7615$ 时二次谐波已经达到 -20 dBV 左右，继续增大至 $m = 1.2765$ 时二次谐波接近 -15 dBV，已经对 -10 dBV
+\end{enumerate}
+
+
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_1.pdf}
+    \caption{Input-output waveforms}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_1_in.png}
+    \caption{input signal spectrum}
+\end{subfigure}
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_1_out.png}
+    \caption{output signal spectrum}
+\end{subfigure}
+\caption{The measured waveforms and Fourier analysis results under {\color{red} $m = 0.2838$},  (a) input-output waveforms, (b) input signal spectrum, and (c) output signal spectrum.}
+\label{fig__AM_1}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_2.pdf}
+    \caption{Input-output waveforms}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_2_in.png}
+    \caption{input signal spectrum}
+\end{subfigure}
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_2_out.png}
+    \caption{output signal spectrum}
+\end{subfigure}
+\caption{The measured waveforms and Fourier analysis results under {\color{red} $m = 0.4727$},  (a) input-output waveforms, (b) input signal spectrum, and (c) output signal spectrum.}
+\label{fig__AM_2}
+\end{figure}
+
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_3.pdf}
+    \caption{Input-output waveforms}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_3_in.png}
+    \caption{input signal spectrum}
+\end{subfigure}
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_3_out.png}
+    \caption{output signal spectrum}
+\end{subfigure}
+\caption{The measured waveforms and Fourier analysis results under {\color{red} $m = 0.7615$},  (a) input-output waveforms, (b) input signal spectrum, and (c) output signal spectrum.}
+\label{fig__AM_3}
+\end{figure}
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_4.pdf}
+    \caption{Input-output waveforms}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_4_in.png}
+    \caption{input signal spectrum}
+\end{subfigure}
+\begin{subfigure}[b]{\columnwidth}\centering
+    \includegraphics[width=0.95\columnwidth]{NCE-07 AM Modulation/assets/AM_4_out.png}
+    \caption{output signal spectrum}
+\end{subfigure}
+\caption{The measured waveforms and Fourier analysis results under {\color{red} $m = 1.2765$},  (a) input-output waveforms, (b) input signal spectrum, and (c) output signal spectrum.}
+\label{fig__AM_4}
+\end{figure}
+
+
+
+\section{思考题}
+
+\subsection{如何利用频谱分析仪测得标准幅度调制信号的调制系数？}
+
+在频谱仪上可测得载波幅度 $A_c$ 与两个边带幅度 $A_{\text{USB}}$、$A_{\text{LSB}}$，由此计算调制系数 $m$：
+\begin{gather}
+m = \sqrt{\frac{(A_{\text{USB}}^2 + A_{\text{LSB}}^2)}{A_c^2}} = \frac{\sqrt{A_{\text{USB}}^2 + A_{\text{LSB}}^2}}{A_c}
+\end{gather}
+至于如何从频谱结果计算出信号幅度，业界/学界一般都是使用窗函数配合积分法来计算的，具体方法我们已在 NCE-03 Small-Signal LNA 实验中介绍过，这里不再赘述。
+
+
+
+
+\subsection{调制系数增大时，输出信号 (调制后的信号) 频谱有何变化？乘法器的非线性特性又会如何影响输出信号的频谱结构？}
+
+
+
+如 Figure \ref{fig__AM_comparison} 中所示，保持载波幅度不变而增大调制系数时 (相当于增大基带信号幅度)，输出信号频谱中边带幅度增大，载波幅度基本不变，而信号失真逐渐增大，使得频谱中谐波分量幅度增大。这里的失真主要是由乘法器非线性特性引起的：当输入信号幅度较小时，乘法器工作在非常好的线性区，基本观察不到谐波分量 (例如 10.5 MHz 和 10.9 MHz 处的二次谐波)，但随着输入信号幅度增大，乘法器逐渐显示出非线性特性，谐波幅度逐渐增大，影响信号质量。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-07 AM Modulation/assets/AM_comparison.pdf}
+    \caption{Comparison of output signal spectra with different modulation coefficients $m$}
+    \label{fig__AM_comparison}
+\end{figure}
+
+通过频谱分析可以直观地观察到调制系数对输出信号频谱结构的影响，增强了对幅度调制原理的理解。
+
+
+
+\newpage
+\section*{附录 A\hspace*{20pt} 原始数据记录表}
+\addcontentsline{toc}{section}{附录 A\hspace*{6pt} 原始数据记录表} 
+\thispagestyle{fancy} 
+\noindent \begin{graybox}
+注：本次实验所有数据均以 .txt 格式保存在电脑中，已由助教核验过。由于数据基本都为波形采样数据，整体数据量较多，故此处不再单独附上原始数据。
+\end{graybox}
+
+\vspace*{\fill}
+\begin{center}\Huge{\bfseries 
+    附录 B\hspace*{20pt} 实验预习报告
+}\end{center}\addcontentsline{toc}{section}{附录 B\hspace*{6pt} 实验预习报告} 
+\vspace*{\fill}
+\thispagestyle{fancy} 
+\includepdf[pages={-}]{NCE-07 AM Modulation/preview/NCE-07 (preview report).pdf}
+
+\section*{附录 C \hspace*{20pt} MATLAB Codes}
+\addcontentsline{toc}{section}{附录 C \hspace*{6pt} MATLAB Codes} 
+\thispagestyle{fancy} 
+\lstinputlisting{d:/a_RemoteRepo/GH.MatlabCodes/本科课程代码/Non-Linear Circuits/NCE_07.m}
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + Tab:               切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+
