@@ -1,0 +1,216 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{\small Preview Report of NCE-08 AM Demod. (2025.12.11, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 预\ \ 习\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.6cm} Amplitude Demodulation \hspace{0.6cm}}
+%
+    }\hspace{0.4cm}
+    指导教师：\uline{\hspace{0.5cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.5cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.12.11}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{实验目的}
+\begin{enumerate}
+    \item 掌握基于集成模拟乘法器的幅度调制 (AM) 原理与实现方法。
+    \item 理解AM信号频谱结构、功率分配及调制系数 (Modulation Index) 的影响。
+    \item 掌握使用MC1496四象限模拟乘法器实现 AM 调制的电路配置与调试方法。
+    \item 学会在示波器上测量调制系数并分析基带信号 (原始信号)、载波与已调波之间的关系。
+\end{enumerate}
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 高频实验箱 - 乘法调幅/混频实验板 (031132201809392)
+\item 示波器 RIGOL MSO2202A  (080103201901376)
+\item 信号发生器 GWINSTEK AFG-2225  (080102201901355)
+\item 万用表 LINIT- UT61A (C181503983)
+\end{enumerate}
+
+\section{实验原理}
+\subsection{同步幅度解调 (Synchronous AM Demodulation) 原理}
+
+\noindent 设已接收的标准 AM 信号 (来自上一个实验的输出) 为：
+\begin{gather}
+    v_{AM}(t) = A_c \big[ 1 + m \cos(\omega_s t) \big] \cos(\omega_c t)
+\end{gather}
+其中，$f_s$ 为基带信号频率，$f_c$ 为载波频率，$m$ 为调制系数。同步解调的核心思想是：在接收端产生一个与发射端载波同频率且\textbf{同相位} 的本地载波 (Local Carrier, 也称恢复载波或参考信号) $v_{r}(t)$：
+\begin{gather}
+    v_{r}(t) = A_{r} \cos(\omega_c t + \Delta\phi)
+\end{gather}
+理想情况下，相位差 $\Delta\phi = 0$，即完全同步。将调制信号 $v_{AM}(t)$ 与恢复载波 $v_{r}(t)$ 输入模拟乘法器进行相乘，利用三角恒等式 $\cos^2(\omega_c t) = \frac{1}{2}[1 + \cos(2\omega_c t)]$，得到：
+\begin{align}
+v_{out}(t) &= k \cdot v_{AM}(t) \cdot v_{r}(t) 
+= k A_c A_{r} \big[ 1 + m \cos(\omega_s t) \big] \cos^2(\omega_c t)
+\\ & = \underbrace{\frac{k A_c A_{r}}{2} \big[ 1 + m \cos(\omega_s t) \big]}_{\text{低频分量 (包含直流与基带信号)}}
++ \underbrace{\frac{k A_c A_{r}}{2} \big[ 1 + m \cos(\omega_s t) \big] {\color{red} \times \cos(2\omega_c t)}}_{\text{高频分量 (中心频率为 2 $f_c$) }}
+\end{align}
+如果相位不同步，即 $\Delta\phi \ne 0$，则乘法器输出变为：
+\begin{align}
+v_{out}(t) &= k \cdot v_{AM}(t) \cdot v_{r}(t) = k A_c A_{r} \big[ 1 + m \cos(\omega_s t) \big] \cos(\omega_c t) \cos(\omega_c t + \Delta\phi)
+\\ & = k A_c A_{r} \big[ 1 + m \cos(\omega_s t) \big] \cos(\omega_c t) \left[\cos (\Delta \phi) \cos (\omega_c t) - \sin (\Delta \phi) \sin (\omega_c t)\right]
+\\ &
+= \cos (\Delta \phi) k A_c A_{r} \big[ 1 + m \cos(\omega_s t) \big] \cos^2(\omega_c t) - \sin (\Delta \phi) k A_c A_{r} \big[ 1 + m \cos(\omega_s t) \big] \cos(\omega_c t) \sin(\omega_c t)
+\\ & \small
+= \underbrace{
+\frac{k A_c A_{r} \cos (\Delta \phi)}{2} \big[ 1 + m \cos(\omega_s t) \big]
+}_{\text{低频分量 (包含直流与基带信号)}}
++ \underbrace{
+\frac{k A_c A_{r}}{2} \big[ 1 + m \cos(\omega_s t) \big] {\color{red} \times \left[\cos (\Delta \phi)\cos (2 \omega_c t) - \sin (\Delta \phi)\sin (2 \omega_c t)\right]}
+}_{\text{高频分量 (中心频率为 2 $f_c$) }}
+\end{align}
+由此看出相位误差 $\Delta \phi$ 并不会从根本上影响解调结果，但会使低频分量的幅度降低，系统信噪比稍有下降。值得一提的是，上述基于乘法器的同步解调方法适用于绝大多数 Amplitude Modulation 形式，通用性较强。
+%当 $\Delta \phi = 90^\circ$ 时，低频分量完全消失，无法解调出基带信号。
+
+
+
+\subsection{低通滤波器的作用}
+\noindent 乘法器输出 $v_{out}(t)$ 包含两个主要频率成分：
+\begin{enumerate}
+    \item \textbf{低频分量 (Low-Frequency Component)}：包含直流成分和原始基带信号 $ \cos(\omega_s t) $。
+    \item \textbf{高频分量 (High-Frequency Component)}：中心频率在 $2f_c$，其幅度受基带信号调制。
+\end{enumerate}
+通过一个高边截止频率 $f_{\text{H}}$ 满足 $f_s \ll f_{\text{H}} \ll 2f_c$ 的低通滤波器，可以很好地滤除高频分量 ($2f_c$ 附近)：
+\begin{gather}
+    v_{\text{out, LPF}}(t) = \frac{k A_c A_{r}}{2} \big[ 1 + m \cos(\omega_s t) \big]
+\end{gather}
+该信号包含一个直流偏移 $\frac{k A_c A_{r}}{2}$ 和放大后的原始基带信号 $\frac{k A_c A_{r} m}{2} \cos(\omega_s t)$。通过隔直电容或后级电路即可去除直流，最终恢复出纯净的基带信号。
+
+\subsection{同步解调与包络检波的比较}
+\begin{enumerate}
+\item \textbf{乘法器同步解调 (Synchronous Demodulation)}：
+    \textbf{优点}：解调线性度好，适用于低调制系数 ($m \ll 1$) 及过调制 ($m > 1$) 情况；能解调所有类型的幅度调制信号 (包括 DSB-SC、SSB)。
+    \textbf{缺点}：需要产生与发射端严格同步的本地载波，系统复杂度高。
+\item \textbf{二极管包络解调 (Envelope Detection)}：
+    \textbf{优点}：电路极其简单 (仅需一个二极管、电阻和电容)，无需本地载波。
+    \textbf{缺点}：仅适用于幅度较大的标准 AM 信号 ($m \le 1$)；解调效率低，存在门限效应和失真；无法解调 DSB-SC 或 SSB 信号。
+\end{enumerate}
+
+\subsection{实验电路简要分析}
+\noindent 如 Figure \ref{fig__demod_circuit} 所示，本次实验的同步解调电路同样以 MC1496 为核心，结构与调制电路类似但功能不同：
+\begin{enumerate}
+    \item \textbf{输入端口 IN1}：接入本地恢复载波 $v_{r}(t)$ (将调整电路中所用的载波信号输入此端)；
+    \item \textbf{输入端口 IN2}：接入待解调的 AM 信号 $v_{AM}(t)$ (来自调制实验板的 OUT 端)；
+    \item \textbf{核心乘法器}：MC1496 实现 $v_{AM}(t) \times v_{r}(t)$ 的相乘操作；
+    \item \textbf{低通滤波器}：由 R16, C10, C11 构成无源低通滤波器，用于滤除 $2f_c$ 高频分量；
+    \item \textbf{输出级}：采用 Common Emitter 放大电路作为输出级，提高信号幅度的同时隔离负载影响；
+    \item \textbf{输出端口 TP3}：乘法器直接输出端，可观测未滤波的混合信号 (包含低频和高频分量)；
+    \item \textbf{输出端口 TP4}：经过低通滤波器后的输出，即为恢复后的基带信号。
+\end{enumerate}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/circuit.png}
+    \caption{MC1496-Based Synchronous AM Demodulation Circuit Used in the Experiment}
+    \label{fig__demod_circuit}
+\end{figure}
+
+\section{实验内容与步骤}
+\subsection{实验前准备与连接}
+\begin{enumerate}
+    \item 在实验箱上接入\textbf{乘法器幅度调制实验板}和\textbf{调幅信号同步解调实验板}；
+    \item 按上一个实验的步骤，在调制板上产生一个调制系数 $m \approx 0.5$ 的 AM 信号；
+    \item 将调制板 OUT 端产生的 AM 信号接入解调板的 IN2 端；
+    \item 将调制板所用的 10.7 MHz 载波信号 (信号源或晶体振荡器输出) 接入解调板的 IN1 端作为本地载波。
+\end{enumerate}
+
+\subsection{解调过程观测与调试}
+\begin{enumerate}
+    \item \textbf{观测未滤波信号 (TP3)}：将示波器通道 1 接 TP3，调整解调板上的电位器 RW1 和 RW2，使波形稳定。此时应观察到包含低频包络和高频载波分量的混合信号。
+    \item \textbf{观测滤波后信号 (TP4)}：将示波器通道 2 接 TP4，观察经过低通滤波器后的输出，应为一个频率为 1 kHz 的正弦波 (可能带有少量残余高频纹波)；微调 RW1, RW2 使 TP4 端的正弦幅度最大、失真最小。
+    \item \textbf{不同调制系数下的解调}：在幅度调制板中，依次将调制系数 $m$ 调节至约 0.3、0.5、0.8，对每一个 $m$ 值，在解调板上记录 TP3 和 TP4 的波形；对比不同 $m$ 下，解调输出波形 (TP4) 的幅度、失真度和信噪比的变化。
+\end{enumerate}
+
+\section{思考题}
+\subsection{分析调幅波同步解调方法的优缺点。}
+
+调幅波同步解调方法具有一系列显著优点。首先，在理想同步条件下，其解调输出与输入调制信号之间呈现严格的线性关系，失真度极低，保证了高线性度与高保真度。其次，该方法的适用性非常广泛，不仅能解调标准AM信号，还能有效处理抑制载波的双边带 (DSB-SC) 和单边带调制 (SSB) 等复杂调制信号。此外，与包络检波相比，同步解调不存在“门限效应”，在低信噪比环境下依然能保持优良的接收性能。最后，该方法对过调制状态具有很好的鲁棒性，即使调制系数 $m > 1$，只要载波同步良好，依然能够正确解调出原始信号。
+
+然而，同步解调方法也存在若干缺点，其中最主要的一点是需要实现精确的载波同步，即接收端必须产生一个与发射端载波严格同频同相的本地载波。这通常需要依赖锁相环 (PLL) 等复杂的载波生成电路，显著增加了系统的硬件成本与整体复杂度。其次，该方法的性能对相位噪声高度敏感，本地载波的相位噪声 $\phi_n$ 会通过幅度系数 $\cos (\Delta \phi)$ 直接耦合到解调后的基带信号中。最后，从电路实现层面看，同步解调需要模拟乘法器和低通滤波器等组件，其电路结构相比简单的包络检波解调电路要复杂得多。
+
+总的来讲，同步解调主要应用于对解调质量要求严苛、信号形式复杂 (如 DSB-SC、SSB) 或工作于低信噪比环境的通信系统中，例如专业无线电、卫星通信以及数字通信的相干解调等场合。相比之下，包络检波则因其极简的电路结构，被广泛应用于对成本敏感、且只需处理标准 AM 信号的广播接收机等场景。
+
+
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + Tab:               切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+
