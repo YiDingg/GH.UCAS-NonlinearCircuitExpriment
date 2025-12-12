@@ -1,0 +1,457 @@
+% 若编译失败，且生成 .synctex(busy) 辅助文件，可能有两个原因：
+% 1. 需要插入的图片不存在：Ctrl + F 搜索 'figure' 将这些代码注释/删除掉即可
+% 2. 路径/文件名含中文或空格：更改路径/文件名即可
+
+% --------------------- 文章宏包及相关设置 --------------------- %
+% >> ------------------ 文章宏包及相关设置 ------------------ << %
+% 设定文章类型与编码格式
+\documentclass[UTF8]{article}		
+\input{../.config/config_for_NonlinearCircuitExperiment.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 仅需修改页眉、实验名称、实验日期
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%% 1. 修改页眉内容 %%%%%%%%%%%%%%%%%%
+\rhead{NCE-09 FM and Demodulation (2025.12.04, 丁毅)}
+
+% 开始编辑文章
+\begin{document}
+\begin{center}\large
+    \vspace*{-0.8cm}
+    \noindent{\huge\bfseries《\ \ 非\ \ 线\ \ 性\ \ 电\ \ 路\ \ 实\ \ 验\ \ \ 》\ \ 实\ \ 验\ \ 报\ \ 告 }
+    \\\vspace{0.1cm}
+    \noindent{
+    {\bfseries 
+%
+%%%%%%%%%%%%%%%%%% 2. 修改实验名称 %%%%%%%%%%%%%%%%%%
+    实验名称：\uline{\hspace{0.8cm} FM and Demodulation \hspace{0.8cm}}
+%
+    }\hspace{0.4cm}
+    指导教师：\uline{\hspace{0.5cm}冯鹏\ \ fengpeng06@semi.ac.cn     \hspace{0.5cm}}
+    }
+    \\\vspace{0.1cm}
+    \noindent
+    {
+    姓名：\uline{\,\,\,丁毅\,\,\,}\hspace{0.2cm}
+    学号：\uline{\,\,\,{ 2023K8009908031}\,\,\,}\hspace{0.2cm}
+    班级/专业：\uline{\,\,\,{2308/电子信息}\,\,\,}\hspace{0.2cm}
+    分组序号：\uline{\,\,\,{2-06}\,\,\,}
+    }
+    \\\vspace{0.1cm}
+    \noindent{
+%
+%%%%%%%%%%%%%%%%%% 3. 修改实验日期 %%%%%%%%%%%%%%%%%%
+    实验日期：\uline{\,\,{2025.12.04}\,\,}\hspace{0.2cm}
+%
+    实验地点：\uline{\,\,\,西实验楼 (8 号楼) { 308}\,\,\,}\hspace{0.2cm}
+    是否调课/补课：\uline{\hspace{0.1cm}否 \hspace{0.1cm}}\hspace{0.2cm}
+    成绩：\uline{\hspace{0.6cm}}
+    }
+\end{center}
+\vspace{-0.4cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+\vspace{-1.0cm}
+
+% 生成目录
+\setcounter{tocdepth}{3}  % 目录深度为 2（不显示 subsubsection）
+\noindent\tableofcontents\thispagestyle{fancy}   % 显示页码、页眉等
+%\newpage
+\vspace{0.5cm}
+\noindent\rule{\textwidth}{0.075em}   % 分割线
+
+% ------------------------ 文章信息区 ------------------------ %
+% ------------------------ 文章信息区 ------------------------ %
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 下面是正文内容 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%% 从预习报告转为正式实验报告时 %%%%%%%%%%%%
+% 1. 将标题中的 "预习报告" 改为 "实验报告"
+% 2. 将页眉中的 "Preview Report of" 删去
+% 3. 在正文前添加目录
+% 4. 在正文后添加附录
+
+
+
+
+
+
+\section{实验目的}
+
+\begin{enumerate}
+    \item 掌握基于变容二极管的频率调制 (Frequency Modulation, FM) 原理与电路实现。
+    \item 理解静态调制特性与动态解调特性的概念，并掌握其测量方法。
+    \item 掌握电容耦合相位鉴频器 (Capacitively-Coupled Phase Discriminator) 的工作原理与调试方法。
+    \item 观测完整的调频-鉴频过程，分析各环节波形特征。
+\end{enumerate}
+
+
+
+\section{实验仪器}
+
+\begin{enumerate}
+\item 高频实验箱 - 变容二极管调频电路实验板 (031132201809392)
+\item 高频实验箱 - 电容耦合相位鉴频实验板 (031132201809392)
+\item 示波器 RIGOL MSO2202A  (080103201901376)
+\item 信号发生器 GWINSTEK AFG-2225  (080102201901355)
+\item 万用表 LINIT- UT61A (C181503983)
+\end{enumerate}
+
+\section{实验原理}
+
+\subsection{变容二极管频率调制原理}
+
+\noindent 变容二极管是一种特殊的 PN 结二极管，其结电容 $C$ 随反向偏压 $V_R$ 变化而变化，关系近似为:
+\begin{gather}
+C(V_R) = \frac{C_{0}}{\displaystyle \left(1 + \frac{V_R}{V_{\phi}}\right)^\gamma}
+\end{gather}
+其中 $C_{0}$ 为零偏压结电容，$V_{\phi}$ 为接触电势 (contact potential)，$\gamma$ 为电容指数 (capacitance exponent)。将变容二极管接入 LC 振荡器的谐振回路中，回路总电容 $C_{\Sigma}$ 包含变容二极管电容 $C$。振荡频率为:
+\begin{gather}
+f = \frac{1}{2\pi\sqrt{L C_{\Sigma}}},\quad C_{\Sigma} = C + C_{fixed}
+\end{gather}
+当在变容二极管上施加直流偏压 $V_{DC}$ 和调制信号 $V_s(t) = A_s \cos(\omega_s t)$ 时，总反向电压为 $V_R(t) = V_{DC} + V_s(t)$，此时结电容变为：
+\begin{gather}
+C(t) = \frac{C_{0}}{[1 + (V_{DC} + A_s \cos\omega_s t)/V_{\phi}]^\gamma}
+\end{gather}
+对于小信号调制 ($A_s \ll V_{DC} + V_{\phi}$)，可将 $C(t)$ 在 $V_{DC}$ 处展开，得到近似线性关系:
+\begin{gather}
+C(t) \approx C_{0} - k A_s \cos\omega_s t,\quad k = \frac{\gamma C_{0}}{V_{\phi} [1 + V_{DC}/V_{\phi}]^{\gamma + 1}}
+\end{gather}
+其中 $k$ 为变容二极管的电容调制灵敏度。相应的振荡频率变化为:
+\begin{gather}
+f(t) \approx f_0 + f_m \cos\omega_s t = f_0\left[1 + \frac{f_m}{f_0} \cos(\omega_s t)\right] = f_0\left[1 + m_f \cos(\omega_s t)\right]
+\end{gather}
+其中 $f_0$ 为载波中心频率，$f_m$ 为最大频偏 (maximum frequency deviation)，而 $m_f$ 与幅度调制中的调制系数类似，称为调频系数 (frequency modulation index)。上述操作实现了频率调制，输出信号为典型的调频波 (Frequency-Modulated Signal):
+\begin{gather}
+\phi(t) = \int 2\pi f(t) \ \mathrm{d}t = 2\pi f_0\left[t + m_f \frac{\sin(\omega_s t)}{\omega_s}\right] = 2\pi f_0 t + 2\pi \beta \sin(\omega_s t)
+\\
+\Longrightarrow 
+v_{FM}(t) = A_c \cos\left[2\pi f_0 t + \beta \sin(\omega_s t)\right]
+\end{gather}
+其中 $\beta = \frac{f_m}{f_s \omega_s}$ 称为频偏比 (deviation ratio)。
+
+显然，由于变容二极管的非线性，调频过程中会引入一定的失真，失真的程度不仅与变容二极管的变容特性有关，还取决于调制电压幅度大小。电压幅度愈大，则失真愈大，一般取调制电压幅度不超过偏置电压的 30\% 以减小失真，也即：
+\begin{gather}
+A_{s} < V_{DC} \times 30 \%
+\end{gather}
+
+\subsection{实验电路简要分析 (变容二极管频率调制)}
+
+如 Figure \ref{fig__fm_circuit} 所示，本次实验的变容二极管调频电路大概可分为三级，第一级是由变容二极管以及周边电感电容组成的调频电路，基带信号从 IN1 端输入，二极管的直流偏置由滑动变阻器调节。通过滤波电容后进入第二级缓冲电路，该电路还包括了由电容分压构成的交流反馈回路。信号经 C8 和 R7 输入至第三级 Common Emitter 放大电路后输出。
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/circuit.png}
+    \caption{变容二极管调频电路原理图}
+    \label{fig__fm_circuit}
+\end{figure}
+
+\subsection{电容耦合相位鉴频器 (频率解调器) 原理}
+
+相位鉴频器是一种将频率变化转换为电压变化的解调电路。其核心是一个频相转换网络，通常采用双调谐回路。对于电容耦合相位鉴频器，初级回路电压 $v_1$ 与次级回路电压 $v_2$ 之间的相位差 $\phi$ 随频率变化的关系为:
+\begin{gather}
+\phi = \phi(f) \approx \frac{\pi}{2} - 2Q\frac{f - f_0}{f_0}
+\end{gather}
+其中 $Q$ 为回路品质因数，$f_0$ 为回路谐振频率。该相位差被转换为幅度变化，再通过包络检波恢复出调制信号。假设输入调频信号为 $v_{FM}(t)$，经相位鉴频器解调后的输出电压 $v_{out}(t)$ 与瞬时频偏 $f_m(t)$ 成线性关系:
+\begin{gather}
+v_{out}(t) = K_d \cdot f_m(t)
+\end{gather}
+其中 $K_d$ 为鉴频灵敏度 (discrimination sensitivity)，单位为 V/Hz。
+
+\subsection{静态调制特性与动态解调特性}
+
+静态调制特性描述在无调制信号 ($A_s = 0$) 时，变容二极管调频电路输出频率 $f$ 随直流偏压 $V_{DC}$ 变化的曲线，即 $f$-$V_{DC}$ 关系。该曲线反映了变容二极管的压控特性，其斜率即为调频灵敏度 $K_f$。
+
+动态解调特性描述在有调制信号时，鉴频器输出解调电压 $v_{out}$ 与调频器输入调制电压 $A_s$ 之间的关系，即 $v_{out}$-$A_s$ 关系。当调频与鉴频系统均工作在线性区时，此关系应为直线，其斜率反映了整个系统的传输系数。
+
+
+\subsection{实验电路简要分析 (电容耦合相位鉴频器)}
+
+如 Figure \ref{fig__demod_circuit} 所示，本次实验的电容耦合相位鉴频器主要包括两级，基带信号从 IN1 端输入，经二极管限幅后输入第一级共射放大电路，该电路在集电极负载上接有 LC 谐振回路，从而可以实现利用频率响应将等幅的调频信号转化为调频调幅波。第二级电路利用二极管进行幅度检波，进行包络检波以从调制信号中恢复基带信号。
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{assets/circuit 2.png}
+    \caption{电容耦合相位鉴频器原理图}
+    \label{fig__demod_circuit}
+\end{figure}
+
+
+\section{实验内容与步骤}
+
+\subsection{变容二极管调频静态调制特性测试}
+首先将变容二极管调频电路模块插入实验箱主板并接通电源。断开调制信号输入跳线 J2，仅连接直流偏置跳线 J1。调节电位器 RW1，使用万用表在测试点 TP2 测量变容二极管的反向偏压 $V_D$，并调整至 +5V (实际反向偏压为 -5V)。然后连接 J2，调节微调电容 CV1 以及电位器 RW2、RW3，使用示波器在 OUT 端观测，使输出信号为频率 10.7MHz 的最大不失真正弦波。
+
+保持调制信号为零，调节 RW1 以改变变容二极管的反向偏压 $V_D$，测量对应的输出频率 $f$。记录多组 $V_D$ 与 $f$ 数据，绘制静态调制特性曲线 $f$-$V_D$。
+
+\subsection{变容二极管调频动态解调特性测试}
+完成静态特性测试后，将电容耦合相位鉴频器模块插入实验箱主板。使用信号发生器产生频率为 1kHz、峰峰值为 2V 的正弦波作为调制信号 $V_s(t)$，输入到调频电路模块的 IN1 端。在调频器 OUT 端用示波器观察产生的调频波 $v_{FM}(t)$。
+
+将调频器输出 $v_{FM}(t)$ 连接到鉴频器的输入端，在鉴频器 OUT 端用示波器观察解调后的信号 $v_{out}(t)$。改变调制信号的幅度 $A_s$，测量对应的解调输出电压幅度 $V_{out}$。记录多组 $A_s$ 与 $V_{out}$ 数据，绘制动态解调特性曲线 $V_{out}$-$A_s$。
+
+在整个过程中，需要观察并记录三组典型波形: 对应最小 $A_s$、中间值 $A_s$ 和最大 $A_s$ (均在不失真范围内) 时的调频器输入 $V_s(t)$、输出 $v_{FM}(t)$ 以及鉴频器输出 $v_{out}(t)$。
+
+\subsection{调频-鉴频全过程观测}
+固定调制信号幅度为某一中间值，用双踪示波器同时观测: 通道1接调频器输入调制信号 $V_s(t)$，通道2接鉴频器输出解调信号 $v_{out}(t)$。对比两个波形，分析解调信号的保真度、相位延迟等特性。改变调制信号的频率，观察解调效果的变化。
+
+\subsection{回路参数对解调的影响}
+分别微调鉴频器初级回路的谐振电容和次级回路的谐振电容，观察输出解调信号波形的变化，分析回路失谐对鉴频线性度和灵敏度的影响。
+
+\section{实验结果与分析}
+
+\subsection{静态调制特性曲线}
+
+开始实验时，要先给调制电路设置合适工作点以减小输出失真。调节变容二极管的反向偏压、后级电路基极偏置和 LC 谐振回路中的可变电容，得到失真度较小的输出波形，如 Figure \ref{fig__static_modulation_waveform_5d184V} 所示，此时二极管反向偏压为 -4.519 V。注意此时输出波形并不是完美的正弦波，仍带有一定失真，但已无法通过简单调节进一步减小失真。
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__反向偏压_4.519V_频率_10.6947 MHz.png}
+    \caption{The output waveform of the varactor FM circuit at $V_D$ = -4.519 V ($f_{out}$ = 10.6947 MHz)}
+    \label{fig__static_modulation_waveform_5d184V}
+\end{figure}
+
+
+在合适工作点的基础上，改变变容二极管的反向偏压 $V_D$，测量对应的输出频率 $f_{out}$，得到静态调制特性曲线，如 Table \ref{tab__static_modulation_characteristic} 和 Figure \ref{fig__static_modulation_characteristic} 所示：
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{The Static Modulation Characteristic of the varactor diode FM circuit}
+    \label{tab__static_modulation_characteristic}
+\resizebox{\linewidth}{!}{   % 设置宽度为 \linewidth 等比例缩放
+\begin{tabular}{cccccccccccc}\toprule
+    Number & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+    \midrule
+    $V_D$ (V) & -1.161 &  -2.126 &  -3.423 &  -4.519 &  -5.184 &  -6.215 &  -7.298 &  -8.412 &  -9.512 & -11.858 \\
+    $f_{out}$ (MHz) & 10.0283 & 10.3168 & 10.5723 & 10.6947 & 10.7547 & 10.8153 & 10.8699 & 10.9173 & 10.9602 & 11.0290 \\ 
+    \bottomrule
+\end{tabular}
+}\end{table}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/static.pdf}
+    \caption{The Static Modulation Characteristic of The Varactor Diode FM Circuit}
+    \label{fig__static_modulation_characteristic}
+\end{figure}
+
+由所获得数据可以看出：变容二极管上反向偏压越高，结电容越小，则由变容二极管构成的谐振回路的振荡频率越高。而由于结电容随偏压的变化、输出频率与结电容的变化都不是线性的，故偏压与输出频率的关系也是非线性的，得到的调制特性曲线并不能近似成直线。但总的来讲，随着反向偏压的增大，输出频率呈现上升趋势。
+
+较低和较高反向偏压下的输出波形如 Figure \ref{fig__static_modulation_waveforms} 所示：
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__反向偏压_2.1258V_频率_10.3168 MHz.png}
+    \caption{$V_D$ = -2.126 V, $f_{out}$ = 10.3168 MHz}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__反向偏压_11.858V_频率_11.0290 MHz.png}
+    \caption{$V_D$ = -11.858 V, $f_{out}$ = 11.0290 MHz}
+\end{subfigure}
+\caption{The output waveforms of the varactor FM circuit at different reverse bias voltages.}
+\label{fig__static_modulation_waveforms}
+\end{figure}
+
+
+
+\subsection{调制/解调全过程波形观测}
+
+在合适电路工作点的基础上，设置合适的基带信号幅度与调制系数，观测调制/解调全过程波形，如 Figure \ref{fig__fm_mod_demod_waveforms} 所示。图中 (a) 为基带信号与调频输出信号的对比，(b) 为基带信号与解调后输出信号的对比。可以看出，经过调频与解调过程后，解调输出信号基本恢复了基带信号的形状，说明成功实现了频率调制与解调操作。
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_0d5Vpp__基带_vs_解调前.png}
+    \caption{The baseband signal (CH1, blue) and the FM output signal before demodulation (CH2, red).}
+\end{subfigure}
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_0d5Vpp__基带_vs_解调后.png}
+    \caption{The baseband signal (CH1, blue) and the demodulated output signal (CH2, red).}
+\end{subfigure}\hfill
+\caption{The waveforms of the varactor FM circuit at $V_D$ = -5.370 V with 0.5 Vpp baseband signal.}
+\label{fig__fm_mod_demod_waveforms}
+\end{figure}
+
+
+\subsection{动态解调特性曲线}
+
+保持其它参数不变，改变基带信号的幅度，测量对应的解调输出电压幅度，得到动态解调特性曲线，结果如 Table \ref{tab__dynamic_demodulation_characteristic} 和 Figure \ref{fig__dynamic_demodulation_characteristic} 所示：
+
+
+
+\begin{table}[H]\centering
+    %\renewcommand{\arraystretch}{1.5} % 调整行间距
+    %\setlength{\tabcolsep}{1.5mm} % 调整列间距
+    \caption{The dynamic demodulation characteristic of the varactor diode FM circuit}
+    \label{tab__dynamic_demodulation_characteristic}
+\begin{tabular}{cccccccccccc}\toprule
+    Number & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+    \midrule
+    $A_{s}$ (Vpp) & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & 1.0 & 1.5 & 2.0 & 5.0 & 7.5 \\
+    $A_{out}$ (Vpp) & 0.322 & 0.643 & 0.965 & 1.285 & 1.585 & 3.202 & 4.381 & 5.293 & 7.802 & 8.923  \\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/dynamic.pdf}
+    \caption{The dynamic demodulation characteristic of the varactor diode FM circuit}
+    \label{fig__dynamic_demodulation_characteristic}
+\end{figure}
+
+
+可以发现，在输入输出幅度不大时，变容二极管的动态解调特性具有较高的线性度。但是，随着输入幅度的增大，输出幅度的增长逐渐变缓，曲线出现明显的非线性特征，输出波形也出现明显失真现象。
+
+输入幅度较小和较大时的输出波形如 Figure \ref{fig__dynamic_demodulation_waveforms} 所示：
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_0d1Vpp__不含明显失真 (基带信号幅度较小时，调制再解调后的输出几乎没有失真).png}
+    \caption{Baseband amplitude = 0.1 Vpp, CH1 (blue): baseband signal; CH2 (red): demodulated output signal}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_1d9Vpp__解调输出含明显失真时的波形 (基带信号幅度过大，解调后波形有明显失真).png}
+    \caption{Baseband amplitude = 2.0 Vpp, CH1 (blue): baseband signal; CH2 (red): demodulated output signal}
+\end{subfigure}
+\caption{The waveforms of the varactor FM circuit at $V_D$ = -5.370 V with different baseband signal amplitudes. (a) 0.1 Vpp baseband signal; (b) 2.0 Vpp baseband signal.}
+\label{fig__dynamic_demodulation_waveforms}
+\end{figure}
+
+\section{思考题}
+
+\subsection{解调电路工作点设置不合理会带来哪些影响？}
+
+解调电路工作点设置不合理会导致解调输出信号出现明显失真，甚至无法正确恢复基带信号，下图是一个例子：
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09_解调电路工作点设置不合理时，即便基带信号幅度较合适，调制再解调后的输出也有明显失真.png}
+    \caption{The output waveform of the varactor FM circuit with improper demodulator operating point setting.}
+\end{figure}
+
+
+
+\subsection{幅度变化现象观察}
+
+改变基带信号幅度，观察调频输出波形，可以发现随着基带信号幅度的增大，频率调制后的输出波形出现了明显的幅度波动现象。具体表现为输出波形的包络线出现了明显的起伏，幅度受到基带信号的影响。这是因为变容二极管具有非线性特性，当基带信号幅度较大时，变容二极管的电容变化不仅调制了频率，还引入了幅度调制成分，导致输出信号的幅度也随基带信号变化。这种现象在调频系统中是不希望出现的，因为理想的调频信号应仅包含频率变化，而不应包含幅度变化。
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_2Vpp__观察调幅现象.png}
+    \caption{The output waveform of the varactor FM circuit with {\color{red} 2 Vpp} baseband signal}
+\end{figure}
+
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_5Vpp__观察调幅现象.png}
+    \caption{The output waveform of the varactor FM circuit with {\color{red} 5 Vpp} baseband signal}
+\end{figure}
+
+\begin{figure}[H]\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_10Vpp__观察调幅现象.png}
+    \caption{The output waveform of the varactor FM circuit with {\color{red} 10 Vpp} baseband signal}
+\end{figure}
+
+
+
+\subsection{调频现象观察}
+
+\textbf{合理设置示波器时间轴和余辉时间}可以帮助我们更清晰地观察调频现象，图 Figure \ref{fig__fm_observation} 是一个例子，输出波形从中轴两端向两端扩展时发生“错位”，且越远离中心区域波形错位越明显，这正是调频现象的体现。
+
+\begin{figure}[H]\centering
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_5Vpp__观察调频现象 (2).png}
+    \caption{Full view}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.48\columnwidth}\centering
+    \includegraphics[width=\columnwidth]{NCE-09 FM Mod and Demod/assets/NCE-09__动态特性_反向偏压_5.370V_低频输入_5Vpp__观察调频现象 (1).png}
+    \caption{Zoomed-in view}
+\end{subfigure}
+\caption{The output waveform of the varactor FM circuit with 5 Vpp baseband signal.}
+\label{fig__fm_observation}
+\end{figure}
+
+
+\subsection{静态和动态解调特性曲线斜率受哪些因素影响？}
+静态调制特性曲线的斜率，即调频灵敏度 $K_f = \partial f / \partial V_{DC}$，主要受以下因素影响: 变容二极管的电容-电压特性 (由 $C_{0}$、$V_{\phi}$、$\gamma$ 决定); LC 谐振回路的电感值 $L$; 变容二极管在回路中的接入系数 (决定了 $C$ 变化对总电容 $C_{\Sigma}$ 的影响程度)。回路 Q 值会影响频率稳定度，从而间接影响测量得到的曲线平滑度。
+
+动态解调特性曲线的斜率，即系统传输系数，受调频与鉴频两个环节的共同影响。除上述影响 $K_f$ 的因素外，还包括: 鉴频器的鉴频灵敏度 $K_d$ (与双调谐回路的耦合系数、Q 值、检波二极管特性有关); 调制频率 $f_s$ (当频率较高时，回路相频特性的非线性可能引入失真); 以及系统中各级放大器的增益。当调制信号幅度过大导致调频器或鉴频器进入非线性区时，动态特性曲线将出现弯曲，斜率发生变化。
+
+
+
+
+\newpage\section*{附录 A\hspace*{20pt} 原始数据记录表}
+\addcontentsline{toc}{section}{附录 A\hspace*{6pt} 原始数据记录表} 
+\thispagestyle{fancy} 
+\noindent \begin{graybox}
+注：本次实验所有数据均以 .txt 格式保存在电脑中，已由赵嘉明助教核验过。由于数据基本都为波形采样数据，整体数据量较多，故此处不再单独附上原始数据。
+\end{graybox}
+
+\vspace*{\fill}
+\begin{center}\Huge{\bfseries 
+    附录 B\hspace*{20pt} 实验预习报告
+}\end{center}\addcontentsline{toc}{section}{附录 B\hspace*{6pt} 实验预习报告} 
+\vspace*{\fill}
+\thispagestyle{fancy} 
+\includepdf[pages={-}]{NCE-09 FM Mod and Demod/preview/NCE-09 (preview report).pdf}
+
+\section*{附录 C \hspace*{20pt} MATLAB Codes}
+\addcontentsline{toc}{section}{附录 C \hspace*{6pt} MATLAB Codes} 
+\thispagestyle{fancy} 
+\lstinputlisting{d:/a_RemoteRepo/GH.MatlabCodes/本科课程代码/Non-Linear Circuits/NCE_09.m}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+% VScode 常用快捷键：
+
+% F2:                       变量重命名
+% Ctrl + Enter:             行中换行
+% Alt + up/down:            上下移行
+% 鼠标中键 + 移动:           快速多光标
+% Shift + Alt + up/down:    上下复制
+% Ctrl + left/right:        左右跳单词
+% Ctrl + Backspace/Delete:  左右删单词    
+% Shift + Delete:           删除此行
+% Ctrl + J:                 打开 VScode 下栏(输出栏)
+% Ctrl + B:                 打开 VScode 左栏(目录栏)
+% Ctrl + `:                 打开 VScode 终端栏
+% Ctrl + 0:                 定位文件
+% Ctrl + Tab:               切换已打开的文件(切标签)
+% Ctrl + Shift + P:         打开全局命令(设置)
+
+% Latex 常用快捷键：
+
+% Ctrl + Alt + J:           由代码定位到PDF
+
+
